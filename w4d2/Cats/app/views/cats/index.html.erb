@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h1> Cats </h1>
+  <ul>
+    <% @cats.each do |cat| %>
+    <li>
+      <%= link_to cat.name, cat_path(cat.id) %>
+    </li>
+    <% end %>
+  </ul>
+  <br>
+  <%= link_to "New Cat", new_cat_path %>
+  <br>
+  <br>
+  <%= link_to "Request a cat", new_cat_rental_request_path %>
+</body>
+</html>

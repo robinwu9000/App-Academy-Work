@@ -1,0 +1,16 @@
+<% form_action = (type == :new) ? users_url : session_url %>
+<% submit_name = (type == :new) ? 'submit' : 'login' %>
+
+<form action="<%= form_action %>" method="post">
+  <%= form_auth_token %>
+
+  <label>Username
+    <input type="text" name="user[username]" id="username">
+  </label>
+
+  <label>Password
+    <input type="password" name="user[password]" id='password'>
+  </label>
+
+  <input type="submit" value="Submit" id='<%= submit_name %>'>
+</form>

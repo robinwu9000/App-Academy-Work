@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>About this cat:</h1>
+  <table>
+    <tr>
+      <th>Birth date</th>
+      <th>Color</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td><%= @cat.birth_date %></td>
+      <td><%= @cat.color %></td>
+      <td><%= @cat.name %></td>
+      <td><%= @cat.sex %></td>
+      <td><%= @cat.description || "No description" %></td>
+    </tr>
+  </table>
+  <br>
+  <br>
+  <h2>Rental Requests</h2>
+  <table>
+  <% CatRentalRequest.where(cat_id: @cat.id).order(:start_date).each do |crr| %>
+    <tr>
+      <% unless crr.status == "DENIED" %>
+        <td> <%= "From #{crr.start_date} to #{crr.end_date}" %> </td>
+        <% if crr.pending? %>
+          <td> <%= button_to "Approve", "#{cat_rental_requests_url}/#{crr.id}", method: :patch, params: {status: :approve} %> </td>
+          <td> <%= button_to "Deny", "#{cat_rental_requests_url}/#{crr.id}", method: :patch, params: {status: :deny} %> </td>
+        <% end %>
+      <% end %>
+  </tr>
+  <% end %>
+  </table>
+
+  <br>
+  <br>
+  <%= link_to "All Cats", cats_url %>
+</body>
+</html>

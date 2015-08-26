@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.17.2/build/cssreset/cssreset-min.css">
+    <title>My Cool Website</title>
+    <script src="../jquery-2.1.4.js"></script>
+    <script src="./tabs.js"></script>
+    <link href="./tabs.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <ul class="tabs" data-content-tabs="#content-tabs">
+      <li><a href="javascript:void(0);" class="active" for="#husky">Husky</a></li>
+      <li><a href="javascript:void(0);" for="#pug">Pug</a></li>
+      <li><a href="javascript:void(0);" for="#greyhound">Greyhound</a></li>
+    </ul>
+
+    <div id="content-tabs">
+      <div class="tab-pane active" id="husky">
+        <p>
+          Huskies are cool.
+        </p>
+      </div>
+
+      <div class="tab-pane" id="pug">
+        <p>
+          Pugs are small.
+        </p>
+      </div>
+
+      <div class="tab-pane" id="greyhound">
+        <p>
+          Greyhounds are fast.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      $(function() {
+        $('.tabs').tabs();
+      })
+    </script>
+  </body>
+</html>

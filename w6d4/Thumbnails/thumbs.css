@@ -1,0 +1,49 @@
+.thumbs {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.active img {
+  width: 100%;
+  height: auto;
+}
+
+.gutter-images {
+  width: 90%;
+  position: relative;
+  left: 5%;
+}
+
+.gutter {
+  position: relative;
+}
+
+.gutter-images img {
+  width: 20%;
+  height: 80px;
+  display: block;
+  float: left;
+}
+
+.nav {
+  width: 5%;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  text-decoration: none;
+  font-size: 28px;
+  transform: translateY(-50%);
+}
+
+.gutter .nav:last-child {
+  left: 95%;
+}
+
+.clear {
+  clear: both;
+  display: block;
+}
+
+.all-images {
+  display: none;
+}

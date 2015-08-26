@@ -1,0 +1,35 @@
+.carousel {
+  height: 300px;
+  width: 300px;
+  margin: 0 auto;
+}
+
+.items {
+  width: 100%;
+  height: 100%;
+  position:relative;
+  overflow: hidden;
+}
+
+.items img {
+  display: none;
+}
+
+.items .active {
+  display: block;
+  position: absolute;
+  left: 0%;
+  transition: left 0.5s ease;
+}
+
+.slide-left {
+  float: right;
+}
+
+.items .left {
+  left: -100%;
+}
+
+.items .right {
+  left: 100%;
+}

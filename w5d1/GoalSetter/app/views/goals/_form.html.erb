@@ -1,0 +1,25 @@
+<% form_action = goal.persisted? ? goal_url(goal) : goals_url %>
+<% form_method = goal.persisted? ? 'PATCH' : 'POST' %>
+
+<form action="<%=form_action %>" method="post">
+  <%= form_auth_token %>
+  <input type="hidden" name="_method" value="<%= form_method %>">
+
+  <label>
+    Title
+    <input type="text" name="goal[title]" value="<%= goal.title %>">
+  </label>
+
+  <label>
+    Visible to:
+    <label>Public
+          <input type="radio" name="goal[visible]" value="Public" <%= "checked" if goal.visible == "Public" %>>
+    </label>
+    <label>Private
+        <input type="radio" name="goal[visible]" value="Private" <%= "checked" if goal.visible == "Private" %>>
+    </label>
+  </label>
+
+  <input type="submit" id="submit" value="submit">
+
+</form>

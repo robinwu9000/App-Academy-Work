@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Zoomable</title>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.17.2/build/cssreset/cssreset-min.css">
+    <script src="../jquery-2.1.4.js"></script>
+    <script src="./zoomable.js"></script>
+    <link href="./zoomable.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://placecorgi.com/javascripts/jquery.placecorgi.js"></script>
+  </head>
+  <body>
+    <div class="zoomable">
+      <div class="focus-box"></div>
+      <img src="http://www.thehumorcolumnist.com/wp-content/uploads/2012/03/pizza-planet.png" alt="planet-pizza" />
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('body').placecorgi();
+      });
+
+
+      $(function() {
+        $('.thumbs').thumbs();
+      })
+    </script>
+  </body>
+</html>

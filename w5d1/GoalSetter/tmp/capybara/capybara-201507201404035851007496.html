@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GoalSetter</title>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <script src="/assets/application.js" data-turbolinks-track="true"></script>
+  
+</head>
+<body>
+    Invalid login
+
+  <a href="http://www.example.com/users/new">Sign Up</a>
+  <a href="http://www.example.com/session/new">Login</a>
+
+
+<h1>Log In</h1>
+
+<form action="http://www.example.com/session" method="post">
+        <input type="hidden"
+      name="authenticity_token"
+      value="g2EFs5mhb3w+hRQJ+s+Znp93uUxx8vBGeBu2SYmTsL0k7GpVK1MU3jAoeegGugnNmLe/9NSGUUpYKBWfC8h2eA==">
+
+
+  <label>Username
+    <input type="text" name="user[username]" id="username">
+  </label>
+
+  <label>Password
+    <input type="password" name="user[password]" id='password'>
+  </label>
+
+  <input type="submit" value="Submit" id='login'>
+</form>
+
+
+
+</body>
+</html>

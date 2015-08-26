@@ -1,0 +1,11 @@
+<% complete_status = goal.completed ? "Completed" : "Incomplete" %>
+
+<tr>
+  <td><%= goal.title %></td>
+  <td><%= complete_status %></td>
+  <% if my_goal %>
+    <td><%= link_to "Edit", edit_goal_url(goal) %></td>
+    <td><%= button_to "Complete", complete_goal_url(goal), method: :patch %></td>
+    <td><%= button_to "Delete", goal_url(goal), method: :delete %></td>
+  <% end %>
+</tr>

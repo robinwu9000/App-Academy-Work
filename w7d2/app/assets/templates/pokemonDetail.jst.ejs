@@ -1,0 +1,13 @@
+<div class="detail">
+  <img src="<%= pokemon.get('image_url') %>"></img>
+
+  <% _(pokemon.attributes).each(function (val, attr) { %>
+    <% if (attr !== 'image_url') {%>
+      <p><%= attr + ': ' + val %></p>
+    <% } %>
+  <% }) %>
+
+</div>
+
+Toys:
+<ul class="toys"></ul>

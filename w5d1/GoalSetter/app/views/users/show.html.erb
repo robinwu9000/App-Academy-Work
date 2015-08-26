@@ -1,0 +1,13 @@
+<h1><%= @user.username %></h1>
+
+<h1>Goals</h1>
+  <table>
+    <% @user.goals.each do |goal| %>
+        <% if current_user_page? %>
+          <%= render 'goals/options', goal: goal, my_goal: true %>
+        <% elsif goal.visible == 'Public' %>
+          <%= render 'goals/options', goal: goal, my_goal: false %>
+        <% end %>
+        <% #fail %>
+    <% end %>
+  </table>
