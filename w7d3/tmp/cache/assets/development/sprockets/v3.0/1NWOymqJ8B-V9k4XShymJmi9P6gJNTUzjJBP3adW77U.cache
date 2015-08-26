@@ -1,0 +1,1 @@
+I"_function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<h2 class="post-title">',  post.escape("title") ,'</h2>\n<p class="post-body">',  post.escape("body") ,'</p>\n<br>\n<div class="error-messages">\n</div>\n<br>\n<button>Delete this post</button>\n<br>\n<a href="">Close post</a>\n');}return __p.join('');}:ET

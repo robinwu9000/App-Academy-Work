@@ -1,0 +1,1227 @@
+  [1m[36m (1.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.9ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20150709155646)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:5)
+  [1m[35m (0.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_name" varchar, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:11)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "polls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "user_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:17)
+  [1m[35m (0.2ms)[0m  CREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "poll_id" integer, "question_text" text, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:23)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "answer_choices" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer_choice_text" varchar, "question_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:29)
+  [1m[35m (0.1ms)[0m  CREATE TABLE "responses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "answer_choice_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.1ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_user_name" ON "users" ("user_name")[0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_polls_on_user_id" ON "polls" ("user_id")
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_questions_on_poll_id" ON "questions" ("poll_id")[0m
+  [1m[35m (0.1ms)[0m  CREATE UNIQUE INDEX "index_answer_choices_on_question_id" ON "answer_choices" ("question_id")
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_responses_on_user_id" ON "responses" ("user_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_responses_on_answer_choice_id" ON "responses" ("answer_choice_id")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150709155646"]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.5ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_user_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_user_name' AND type='index'
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20150709155646)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (10.2ms)[0m  DROP INDEX "index_responses_on_answer_choice_id"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (1.6ms)[0m  DROP INDEX "index_responses_on_user_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+[0m
+  [1m[35m (1.2ms)[0m  DROP INDEX "index_answer_choices_on_question_id"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+[0m
+  [1m[35m (0.6ms)[0m  DROP INDEX "index_questions_on_poll_id"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  DROP INDEX "index_polls_on_user_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_user_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_user_name' AND type='index'
+[0m
+  [1m[35m (0.4ms)[0m  DROP INDEX "index_users_on_user_name"
+  [1m[36m (0.8ms)[0m  [1mDROP TABLE "responses"[0m
+  [1m[35m (0.5ms)[0m  DROP TABLE "answer_choices"
+  [1m[36m (0.6ms)[0m  [1mDROP TABLE "questions"[0m
+  [1m[35m (0.5ms)[0m  DROP TABLE "polls"
+  [1m[36m (0.6ms)[0m  [1mDROP TABLE "users"[0m
+  [1m[35mSQL (0.6ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?  [["version", "20150709155646"]]
+  [1m[36m (4.0ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20150709155646)
+  [1m[35m (0.2ms)[0m  begin transaction
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:5)
+  [1m[36m (1.4ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_name" varchar, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:11)
+  [1m[35m (0.2ms)[0m  CREATE TABLE "polls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "user_id" integer, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:17)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "poll_id" integer, "question_text" text, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:23)
+  [1m[35m (0.2ms)[0m  CREATE TABLE "answer_choices" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer_choice_text" varchar, "question_id" integer, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:29)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "responses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "answer_choice_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.2ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_user_name" ON "users" ("user_name")[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_polls_on_user_id" ON "polls" ("user_id")
+  [1m[36m (0.3ms)[0m  [1mCREATE UNIQUE INDEX "index_questions_on_poll_id" ON "questions" ("poll_id")[0m
+  [1m[35m (0.2ms)[0m  CREATE UNIQUE INDEX "index_answer_choices_on_question_id" ON "answer_choices" ("question_id")
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_responses_on_user_id" ON "responses" ("user_id")[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_responses_on_answer_choice_id" ON "responses" ("answer_choice_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150709155646"]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.3ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_user_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_user_name' AND type='index'
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_user_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_user_name' AND type='index'
+
+  [1m[36mUser Load (13.7ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (15.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (11.5ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Andrew"], ["created_at", "2015-07-09 18:53:56.609306"], ["updated_at", "2015-07-09 18:53:56.609306"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "Bob"], ["created_at", "2015-07-09 18:53:56.646634"], ["updated_at", "2015-07-09 18:53:56.646634"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Catherine"], ["created_at", "2015-07-09 18:53:56.650437"], ["updated_at", "2015-07-09 18:53:56.650437"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "David"], ["created_at", "2015-07-09 18:53:56.653809"], ["updated_at", "2015-07-09 18:53:56.653809"]]
+  [1m[36m (24.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Emma"], ["created_at", "2015-07-09 18:53:56.680920"], ["updated_at", "2015-07-09 18:53:56.680920"]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (11.7ms)[0m  INSERT INTO "polls" ("title", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "Sample 1"], ["user_id", 1], ["created_at", "2015-07-09 18:53:56.749752"], ["updated_at", "2015-07-09 18:53:56.749752"]]
+  [1m[36m (14.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Where should I eat?"], ["poll_id", 1], ["created_at", "2015-07-09 18:53:56.786042"], ["updated_at", "2015-07-09 18:53:56.786042"]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (5.8ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "a"], ["question_id", 1], ["created_at", "2015-07-09 18:53:56.818799"], ["updated_at", "2015-07-09 18:53:56.818799"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "b"], ["question_id", 1], ["created_at", "2015-07-09 18:53:56.828205"], ["updated_at", "2015-07-09 18:53:56.828205"]]
+SQLite3::ConstraintException: UNIQUE constraint failed: answer_choices.question_id: INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20150709155646)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  DROP INDEX "index_responses_on_answer_choice_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (1.5ms)[0m  DROP INDEX "index_responses_on_user_id"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  DROP INDEX "index_answer_choices_on_question_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  DROP INDEX "index_questions_on_poll_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  DROP INDEX "index_polls_on_user_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_user_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_user_name' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  DROP INDEX "index_users_on_user_name"
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "responses"[0m
+  [1m[35m (0.2ms)[0m  DROP TABLE "answer_choices"
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "questions"[0m
+  [1m[35m (0.2ms)[0m  DROP TABLE "polls"
+  [1m[36m (0.3ms)[0m  [1mDROP TABLE "users"[0m
+  [1m[35mSQL (0.4ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?  [["version", "20150709155646"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20150709155646)
+  [1m[35m (0.1ms)[0m  begin transaction
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:5)
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_name" varchar, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:11)
+  [1m[35m (0.2ms)[0m  CREATE TABLE "polls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "user_id" integer, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:17)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "poll_id" integer, "question_text" text, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:23)
+  [1m[35m (0.2ms)[0m  CREATE TABLE "answer_choices" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer_choice_text" varchar, "question_id" integer, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:29)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "responses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "answer_choice_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (40.6ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_user_name" ON "users" ("user_name")[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_polls_on_user_id" ON "polls" ("user_id")
+  [1m[36m (0.2ms)[0m  [1mCREATE UNIQUE INDEX "index_questions_on_poll_id" ON "questions" ("poll_id")[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_answer_choices_on_question_id" ON "answer_choices" ("question_id")
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_responses_on_user_id" ON "responses" ("user_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_responses_on_answer_choice_id" ON "responses" ("answer_choice_id")[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150709155646"]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_user_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_user_name' AND type='index'
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Andrew"], ["created_at", "2015-07-09 18:55:30.700725"], ["updated_at", "2015-07-09 18:55:30.700725"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "Bob"], ["created_at", "2015-07-09 18:55:30.706609"], ["updated_at", "2015-07-09 18:55:30.706609"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Catherine"], ["created_at", "2015-07-09 18:55:30.709928"], ["updated_at", "2015-07-09 18:55:30.709928"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "David"], ["created_at", "2015-07-09 18:55:30.714133"], ["updated_at", "2015-07-09 18:55:30.714133"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Emma"], ["created_at", "2015-07-09 18:55:30.718610"], ["updated_at", "2015-07-09 18:55:30.718610"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "polls" ("title", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "Sample 1"], ["user_id", 1], ["created_at", "2015-07-09 18:55:30.747727"], ["updated_at", "2015-07-09 18:55:30.747727"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Where should I eat?"], ["poll_id", 1], ["created_at", "2015-07-09 18:55:30.783097"], ["updated_at", "2015-07-09 18:55:30.783097"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "a"], ["question_id", 1], ["created_at", "2015-07-09 18:55:30.801757"], ["updated_at", "2015-07-09 18:55:30.801757"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "b"], ["question_id", 1], ["created_at", "2015-07-09 18:55:30.805108"], ["updated_at", "2015-07-09 18:55:30.805108"]]
+  [1m[35m (2.0ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "c"], ["question_id", 1], ["created_at", "2015-07-09 18:55:30.809062"], ["updated_at", "2015-07-09 18:55:30.809062"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "What color is your car?"], ["poll_id", 1], ["created_at", "2015-07-09 18:55:30.812575"], ["updated_at", "2015-07-09 18:55:30.812575"]]
+SQLite3::ConstraintException: UNIQUE constraint failed: questions.poll_id: INSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20150709155646)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  DROP INDEX "index_responses_on_answer_choice_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (1.2ms)[0m  DROP INDEX "index_responses_on_user_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  DROP INDEX "index_answer_choices_on_question_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  DROP INDEX "index_questions_on_poll_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  DROP INDEX "index_polls_on_user_id"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_user_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_user_name' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  DROP INDEX "index_users_on_user_name"
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "responses"[0m
+  [1m[35m (0.2ms)[0m  DROP TABLE "answer_choices"
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "questions"[0m
+  [1m[35m (0.2ms)[0m  DROP TABLE "polls"
+  [1m[36m (0.3ms)[0m  [1mDROP TABLE "users"[0m
+  [1m[35mSQL (0.3ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?  [["version", "20150709155646"]]
+  [1m[36m (2.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20150709155646)
+  [1m[35m (0.1ms)[0m  begin transaction
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:5)
+  [1m[36m (0.6ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_name" varchar, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:11)
+  [1m[35m (0.3ms)[0m  CREATE TABLE "polls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "user_id" integer, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:17)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "poll_id" integer, "question_text" text, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:23)
+  [1m[35m (0.2ms)[0m  CREATE TABLE "answer_choices" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer_choice_text" varchar, "question_id" integer, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:29)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "responses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "answer_choice_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.2ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_user_name" ON "users" ("user_name")[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_polls_on_user_id" ON "polls" ("user_id")
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_questions_on_poll_id" ON "questions" ("poll_id")[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_answer_choices_on_question_id" ON "answer_choices" ("question_id")
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_responses_on_user_id" ON "responses" ("user_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_responses_on_answer_choice_id" ON "responses" ("answer_choice_id")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150709155646"]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_user_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_user_name' AND type='index'
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Andrew"], ["created_at", "2015-07-09 18:56:36.385834"], ["updated_at", "2015-07-09 18:56:36.385834"]]
+  [1m[35m (5.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "Bob"], ["created_at", "2015-07-09 18:56:36.396053"], ["updated_at", "2015-07-09 18:56:36.396053"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Catherine"], ["created_at", "2015-07-09 18:56:36.400499"], ["updated_at", "2015-07-09 18:56:36.400499"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "David"], ["created_at", "2015-07-09 18:56:36.404583"], ["updated_at", "2015-07-09 18:56:36.404583"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Emma"], ["created_at", "2015-07-09 18:56:36.409552"], ["updated_at", "2015-07-09 18:56:36.409552"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "polls" ("title", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "Sample 1"], ["user_id", 1], ["created_at", "2015-07-09 18:56:36.427319"], ["updated_at", "2015-07-09 18:56:36.427319"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Where should I eat?"], ["poll_id", 1], ["created_at", "2015-07-09 18:56:36.440879"], ["updated_at", "2015-07-09 18:56:36.440879"]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "a"], ["question_id", 1], ["created_at", "2015-07-09 18:56:36.462779"], ["updated_at", "2015-07-09 18:56:36.462779"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "b"], ["question_id", 1], ["created_at", "2015-07-09 18:56:36.466168"], ["updated_at", "2015-07-09 18:56:36.466168"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "c"], ["question_id", 1], ["created_at", "2015-07-09 18:56:36.469624"], ["updated_at", "2015-07-09 18:56:36.469624"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "What color is your car?"], ["poll_id", 1], ["created_at", "2015-07-09 18:56:36.473674"], ["updated_at", "2015-07-09 18:56:36.473674"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "d"], ["question_id", 2], ["created_at", "2015-07-09 18:56:36.477396"], ["updated_at", "2015-07-09 18:56:36.477396"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "e"], ["question_id", 2], ["created_at", "2015-07-09 18:56:36.480676"], ["updated_at", "2015-07-09 18:56:36.480676"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "f"], ["question_id", 2], ["created_at", "2015-07-09 18:56:36.484003"], ["updated_at", "2015-07-09 18:56:36.484003"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "How many cats do you have?"], ["poll_id", 1], ["created_at", "2015-07-09 18:56:36.487324"], ["updated_at", "2015-07-09 18:56:36.487324"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "g"], ["question_id", 3], ["created_at", "2015-07-09 18:56:36.490905"], ["updated_at", "2015-07-09 18:56:36.490905"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "h"], ["question_id", 3], ["created_at", "2015-07-09 18:56:36.494501"], ["updated_at", "2015-07-09 18:56:36.494501"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "polls" ("title", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "Sample 2"], ["user_id", 3], ["created_at", "2015-07-09 18:56:36.498050"], ["updated_at", "2015-07-09 18:56:36.498050"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Q4"], ["poll_id", 2], ["created_at", "2015-07-09 18:56:36.501653"], ["updated_at", "2015-07-09 18:56:36.501653"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "i"], ["question_id", 4], ["created_at", "2015-07-09 18:56:36.504966"], ["updated_at", "2015-07-09 18:56:36.504966"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "j"], ["question_id", 4], ["created_at", "2015-07-09 18:56:36.508533"], ["updated_at", "2015-07-09 18:56:36.508533"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "k"], ["question_id", 4], ["created_at", "2015-07-09 18:56:36.511963"], ["updated_at", "2015-07-09 18:56:36.511963"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Q5"], ["poll_id", 2], ["created_at", "2015-07-09 18:56:36.515100"], ["updated_at", "2015-07-09 18:56:36.515100"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "l"], ["question_id", 5], ["created_at", "2015-07-09 18:56:36.519286"], ["updated_at", "2015-07-09 18:56:36.519286"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Q6"], ["poll_id", 2], ["created_at", "2015-07-09 18:56:36.523833"], ["updated_at", "2015-07-09 18:56:36.523833"]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "m"], ["question_id", 6], ["created_at", "2015-07-09 18:56:36.528377"], ["updated_at", "2015-07-09 18:56:36.528377"]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.3ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "n"], ["question_id", 6], ["created_at", "2015-07-09 18:56:36.532494"], ["updated_at", "2015-07-09 18:56:36.532494"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 5], ["answer_choice_id", 5], ["created_at", "2015-07-09 18:56:36.578613"], ["updated_at", "2015-07-09 18:56:36.578613"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 2], ["answer_choice_id", 2], ["created_at", "2015-07-09 18:56:36.582102"], ["updated_at", "2015-07-09 18:56:36.582102"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 5], ["answer_choice_id", 11], ["created_at", "2015-07-09 18:56:36.585522"], ["updated_at", "2015-07-09 18:56:36.585522"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["answer_choice_id", 13], ["created_at", "2015-07-09 18:56:36.590291"], ["updated_at", "2015-07-09 18:56:36.590291"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 4], ["answer_choice_id", 9], ["created_at", "2015-07-09 18:56:36.595247"], ["updated_at", "2015-07-09 18:56:36.595247"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[36mUser Load (2.7ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mResponse Load (0.4ms)[0m  SELECT "responses".* FROM "responses"
+  [1m[36mAnswerChoice Load (0.3ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices"[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mPoll Load (0.3ms)[0m  [1mSELECT "polls".* FROM "polls"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Andrew"], ["created_at", "2015-07-09 18:59:43.942287"], ["updated_at", "2015-07-09 18:59:43.942287"]]
+SQLite3::ConstraintException: UNIQUE constraint failed: users.user_name: INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE "answer_choices" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer_choice_text" varchar, "question_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (1.8ms)[0m  [1mCREATE  INDEX "index_answer_choices_on_question_id" ON "answer_choices" ("question_id")[0m
+  [1m[35m (1.3ms)[0m  CREATE TABLE "polls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "user_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX "index_polls_on_user_id" ON "polls" ("user_id")[0m
+  [1m[35m (1.3ms)[0m  CREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "poll_id" integer, "question_text" text, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.8ms)[0m  [1mCREATE  INDEX "index_questions_on_poll_id" ON "questions" ("poll_id")[0m
+  [1m[35m (1.4ms)[0m  CREATE TABLE "responses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "answer_choice_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.4ms)[0m  [1mCREATE  INDEX "index_responses_on_answer_choice_id" ON "responses" ("answer_choice_id")[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (12.1ms)[0m  [1mCREATE  INDEX "index_responses_on_user_id" ON "responses" ("user_id")[0m
+  [1m[35m (1.5ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_name" varchar, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.5ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_user_name" ON "users" ("user_name")[0m
+  [1m[35m (1.5ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar NOT NULL) 
+  [1m[36m (1.6ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.3ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150709155646')[0m
+  [1m[35m (1.5ms)[0m  CREATE TABLE "answer_choices" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer_choice_text" varchar, "question_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (1.6ms)[0m  CREATE  INDEX "index_answer_choices_on_question_id" ON "answer_choices" ("question_id")
+  [1m[36m (1.4ms)[0m  [1mCREATE TABLE "polls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "user_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (1.8ms)[0m  CREATE  INDEX "index_polls_on_user_id" ON "polls" ("user_id")
+  [1m[36m (1.7ms)[0m  [1mCREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "poll_id" integer, "question_text" text, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (1.1ms)[0m  CREATE  INDEX "index_questions_on_poll_id" ON "questions" ("poll_id")
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "responses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "answer_choice_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (1.0ms)[0m  CREATE  INDEX "index_responses_on_answer_choice_id" ON "responses" ("answer_choice_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+[0m
+  [1m[35m (1.1ms)[0m  CREATE  INDEX "index_responses_on_user_id" ON "responses" ("user_id")
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_name" varchar, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX "index_users_on_user_name" ON "users" ("user_name")
+  [1m[36m (1.2ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.2ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (1.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150709155646')
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Andrew"], ["created_at", "2015-07-09 19:00:38.013493"], ["updated_at", "2015-07-09 19:00:38.013493"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "Bob"], ["created_at", "2015-07-09 19:00:38.039647"], ["updated_at", "2015-07-09 19:00:38.039647"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Catherine"], ["created_at", "2015-07-09 19:00:38.044632"], ["updated_at", "2015-07-09 19:00:38.044632"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "David"], ["created_at", "2015-07-09 19:00:38.049131"], ["updated_at", "2015-07-09 19:00:38.049131"]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Emma"], ["created_at", "2015-07-09 19:00:38.053676"], ["updated_at", "2015-07-09 19:00:38.053676"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (14.4ms)[0m  SELECT "answer_choices".* FROM "answer_choices" INNER JOIN "responses" ON "answer_choices"."id" = "responses"."answer_choice_id" WHERE "responses"."user_id" = ?  [["user_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mAnswerChoice Load (0.2ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" INNER JOIN "responses" ON "answer_choices"."id" = "responses"."answer_choice_id" WHERE "responses"."user_id" = ?[0m  [["user_id", 2]]
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1 OFFSET 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1 OFFSET 2[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1 OFFSET 1
+  [1m[36mResponse Load (0.2ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."user_id" = ?[0m  [["user_id", 2]]
+  [1m[35mResponse Load (42.2ms)[0m  SELECT "responses".* FROM "responses"
+  [1m[36mActiveRecord::SchemaMigration Load (31.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (18.6ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Andrew"], ["created_at", "2015-07-09 20:24:28.417397"], ["updated_at", "2015-07-09 20:24:28.417397"]]
+SQLite3::ConstraintException: UNIQUE constraint failed: users.user_name: INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (1.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (67.9ms)[0m  select sqlite_version(*)
+  [1m[36m (2.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20150709155646)
+  [1m[35m (0.2ms)[0m  begin transaction
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:5)
+  [1m[36m (1.1ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_name" varchar, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:11)
+  [1m[35m (0.2ms)[0m  CREATE TABLE "polls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "user_id" integer, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:17)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "questions" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "poll_id" integer, "question_text" text, "created_at" datetime, "updated_at" datetime) [0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:23)
+  [1m[35m (0.2ms)[0m  CREATE TABLE "answer_choices" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "answer_choice_text" varchar, "question_id" integer, "created_at" datetime, "updated_at" datetime) 
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/polls/db/migrate/20150709155646_create_users.rb:29)
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "responses" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "user_id" integer, "answer_choice_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.6ms)[0m  [1mCREATE UNIQUE INDEX "index_users_on_user_name" ON "users" ("user_name")[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_polls_on_user_id" ON "polls" ("user_id")
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_questions_on_poll_id" ON "questions" ("poll_id")[0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_answer_choices_on_question_id" ON "answer_choices" ("question_id")
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_responses_on_user_id" ON "responses" ("user_id")[0m
+  [1m[35m (0.5ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_responses_on_answer_choice_id" ON "responses" ("answer_choice_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150709155646"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_answer_choices_on_question_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_polls_on_user_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_questions_on_poll_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_answer_choice_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_responses_on_user_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_user_name' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_user_name' AND type='index'
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Andrew"], ["created_at", "2015-07-09 20:25:28.236633"], ["updated_at", "2015-07-09 20:25:28.236633"]]
+  [1m[35m (1.9ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "Bob"], ["created_at", "2015-07-09 20:25:28.242702"], ["updated_at", "2015-07-09 20:25:28.242702"]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Catherine"], ["created_at", "2015-07-09 20:25:28.247582"], ["updated_at", "2015-07-09 20:25:28.247582"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)  [["user_name", "David"], ["created_at", "2015-07-09 20:25:28.251465"], ["updated_at", "2015-07-09 20:25:28.251465"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["user_name", "Emma"], ["created_at", "2015-07-09 20:25:28.255394"], ["updated_at", "2015-07-09 20:25:28.255394"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "polls" ("title", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "Sample 1"], ["user_id", 1], ["created_at", "2015-07-09 20:25:28.309217"], ["updated_at", "2015-07-09 20:25:28.309217"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Where should I eat?"], ["poll_id", 1], ["created_at", "2015-07-09 20:25:28.332649"], ["updated_at", "2015-07-09 20:25:28.332649"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "a"], ["question_id", 1], ["created_at", "2015-07-09 20:25:28.352020"], ["updated_at", "2015-07-09 20:25:28.352020"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "b"], ["question_id", 1], ["created_at", "2015-07-09 20:25:28.355452"], ["updated_at", "2015-07-09 20:25:28.355452"]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (1.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "c"], ["question_id", 1], ["created_at", "2015-07-09 20:25:28.360451"], ["updated_at", "2015-07-09 20:25:28.360451"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "What color is your car?"], ["poll_id", 1], ["created_at", "2015-07-09 20:25:28.365476"], ["updated_at", "2015-07-09 20:25:28.365476"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "d"], ["question_id", 2], ["created_at", "2015-07-09 20:25:28.369434"], ["updated_at", "2015-07-09 20:25:28.369434"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "e"], ["question_id", 2], ["created_at", "2015-07-09 20:25:28.373078"], ["updated_at", "2015-07-09 20:25:28.373078"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "f"], ["question_id", 2], ["created_at", "2015-07-09 20:25:28.376766"], ["updated_at", "2015-07-09 20:25:28.376766"]]
+  [1m[36m (2.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "How many cats do you have?"], ["poll_id", 1], ["created_at", "2015-07-09 20:25:28.381175"], ["updated_at", "2015-07-09 20:25:28.381175"]]
+  [1m[35m (1.8ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "g"], ["question_id", 3], ["created_at", "2015-07-09 20:25:28.385130"], ["updated_at", "2015-07-09 20:25:28.385130"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "h"], ["question_id", 3], ["created_at", "2015-07-09 20:25:28.389236"], ["updated_at", "2015-07-09 20:25:28.389236"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "polls" ("title", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["title", "Sample 2"], ["user_id", 3], ["created_at", "2015-07-09 20:25:28.392948"], ["updated_at", "2015-07-09 20:25:28.392948"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Q4"], ["poll_id", 2], ["created_at", "2015-07-09 20:25:28.397167"], ["updated_at", "2015-07-09 20:25:28.397167"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "i"], ["question_id", 4], ["created_at", "2015-07-09 20:25:28.400908"], ["updated_at", "2015-07-09 20:25:28.400908"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "j"], ["question_id", 4], ["created_at", "2015-07-09 20:25:28.404515"], ["updated_at", "2015-07-09 20:25:28.404515"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "k"], ["question_id", 4], ["created_at", "2015-07-09 20:25:28.407945"], ["updated_at", "2015-07-09 20:25:28.407945"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Q5"], ["poll_id", 2], ["created_at", "2015-07-09 20:25:28.411655"], ["updated_at", "2015-07-09 20:25:28.411655"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "l"], ["question_id", 5], ["created_at", "2015-07-09 20:25:28.416515"], ["updated_at", "2015-07-09 20:25:28.416515"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("question_text", "poll_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["question_text", "Q6"], ["poll_id", 2], ["created_at", "2015-07-09 20:25:28.420963"], ["updated_at", "2015-07-09 20:25:28.420963"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["answer_choice_text", "m"], ["question_id", 6], ["created_at", "2015-07-09 20:25:28.424414"], ["updated_at", "2015-07-09 20:25:28.424414"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "answer_choices" ("answer_choice_text", "question_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["answer_choice_text", "n"], ["question_id", 6], ["created_at", "2015-07-09 20:25:28.427724"], ["updated_at", "2015-07-09 20:25:28.427724"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 5], ["answer_choice_id", 5], ["created_at", "2015-07-09 20:25:28.443784"], ["updated_at", "2015-07-09 20:25:28.443784"]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 2], ["answer_choice_id", 2], ["created_at", "2015-07-09 20:25:28.448352"], ["updated_at", "2015-07-09 20:25:28.448352"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 5], ["answer_choice_id", 11], ["created_at", "2015-07-09 20:25:28.452480"], ["updated_at", "2015-07-09 20:25:28.452480"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 1], ["answer_choice_id", 13], ["created_at", "2015-07-09 20:25:28.456925"], ["updated_at", "2015-07-09 20:25:28.456925"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 4], ["answer_choice_id", 9], ["created_at", "2015-07-09 20:25:28.460691"], ["updated_at", "2015-07-09 20:25:28.460691"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.4ms)[0m  SELECT "answer_choices".* FROM "answer_choices" INNER JOIN "responses" ON "answer_choices"."id" = "responses"."answer_choice_id" WHERE "responses"."user_id" = ?  [["user_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (0.2ms)[0m  SELECT "polls".* FROM "polls" WHERE "polls"."user_id" = ?  [["user_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mResponse Load (0.2ms)[0m  SELECT "responses".* FROM "responses" WHERE "responses"."user_id" = ?  [["user_id", 1]]
+  [1m[36mPoll Load (0.2ms)[0m  [1mSELECT  "polls".* FROM "polls"  ORDER BY "polls"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1 OFFSET 2[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1 OFFSET 2
+  [1m[36mResponse Load (0.1ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."user_id" = ?[0m  [["user_id", 3]]
+  [1m[35mPoll Load (0.2ms)[0m  SELECT  "polls".* FROM "polls"  ORDER BY "polls"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions" WHERE "questions"."poll_id" = ?[0m  [["poll_id", 1]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.2ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.2ms)[0m  [1mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mAnswerChoice Load (0.2ms)[0m  SELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mAnswerChoice Load (0.2ms)[0m  SELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" ASC LIMIT 1
+  [1m[36mResponse Load (0.2ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 1]]
+  [1m[35mAnswerChoice Load (0.2ms)[0m  SELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" ASC LIMIT 1 OFFSET 1
+  [1m[36mResponse Load (0.1ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 2]]
+  [1m[35mResponse Load (0.2ms)[0m  SELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.2ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mResponse Load (0.2ms)[0m  SELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mResponse Load (0.2ms)[0m  SELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1 OFFSET 1[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1 OFFSET 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1 OFFSET 1[0m
+  [1m[35mAnswerChoice Load (0.1ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", 2]]
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1 OFFSET 2[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1 OFFSET 2
+  [1m[36mResponse Load (0.2ms)[0m  [1mSELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 3]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1 OFFSET 2
+  [1m[36mResponse Load (0.2ms)[0m  [1mSELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 3]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1 OFFSET 4
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1 OFFSET 4[0m
+  [1m[35mResponse Load (0.1ms)[0m  SELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ?  [["question_id", 5]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1 OFFSET 1[0m
+  [1m[35mResponse Load (0.1ms)[0m  SELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ?  [["question_id", 2]]
+  [1m[36mResponse Load (0.2ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1[0m
+  [1m[35mResponse Load (0.2ms)[0m  SELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1
+  [1m[36mResponse Load (0.1ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1[0m
+  [1m[35mResponse Load (0.3ms)[0m  SELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1
+  [1m[36mResponse Load (0.2ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mResponse Load (0.1ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mResponse Load (0.1ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.1ms)[0m  SELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" ASC LIMIT 1 OFFSET 3
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 3], ["answer_choice_id", 4], ["created_at", "2015-07-09 20:45:08.556051"], ["updated_at", "2015-07-09 20:45:08.556051"]]
+  [1m[36m (5.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mResponse Load (0.2ms)[0m  SELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mResponse Load (0.2ms)[0m  SELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ?  [["question_id", 2]]
+  [1m[36mResponse Load (0.2ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.2ms)[0m  SELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 2], ["answer_choice_id", 1], ["created_at", "2015-07-09 20:46:30.453797"], ["updated_at", "2015-07-09 20:46:30.453797"]]
+  [1m[36m (5.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mResponse Load (0.2ms)[0m  SELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mResponse Load (0.1ms)[0m  SELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ?  [["question_id", 2]]
+  [1m[36mResponse Load (0.1ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mResponse Load (0.8ms)[0m  [1mSELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (id IS NOT 1)[0m  [["question_id", 2]]
+SQLite3::SQLException: ambiguous column name: id: SELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (id IS NOT 1)
+  [1m[35mResponse Load (0.2ms)[0m  SELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mResponse Load (0.7ms)[0m  SELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (id IS NOT 1)  [["question_id", 2]]
+SQLite3::SQLException: ambiguous column name: id: SELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (id IS NOT 1)
+  [1m[36mResponse Load (0.2ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1  [["id", 5]]
+  [1m[36mResponse Load (0.3ms)[0m  [1mSELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT 1)[0m  [["question_id", 2]]
+  [1m[35mResponse Load (0.1ms)[0m  SELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mResponse Load (0.2ms)[0m  SELECT "responses".* FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT 1 AND responses.id IS NOT NULL)  [["question_id", 2]]
+  [1m[36mUser Load (38.9ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT "users".* FROM "users"
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (38.4ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "users"
+  [1m[36mResponse Load (0.2ms)[0m  [1mSELECT "responses".* FROM "responses"[0m
+  [1m[35mAnswerChoice Load (0.4ms)[0m  SELECT "answer_choices".* FROM "answer_choices"
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mUser Load (7.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id IS 2)[0m  [["question_id", 2]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 2], ["answer_choice_id", 4], ["created_at", "2015-07-09 21:13:03.878423"], ["updated_at", "2015-07-09 21:13:03.878423"]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1  [["id", 14]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 1)  [["question_id", 6]]
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 14]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 1)[0m  [["question_id", 6]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1  [["id", 14]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 1)  [["question_id", 6]]
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mQuestion Load (0.3ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 14]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 1)[0m  [["question_id", 6]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1  [["id", 14]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 1)  [["question_id", 6]]
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT 1[0m  [["id", nil]]
+  [1m[35mQuestion Load (0.7ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."answer_choice_id" = 4 LIMIT 1
+SQLite3::SQLException: no such column: questions.answer_choice_id: SELECT  "questions".* FROM "questions" WHERE "questions"."answer_choice_id" = 4 LIMIT 1
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mPoll Load (6.8ms)[0m  [1mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 1)[0m  [["question_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 1], ["answer_choice_id", 8], ["created_at", "2015-07-09 21:31:00.495010"], ["updated_at", "2015-07-09 21:31:00.495010"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 7]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 1)[0m  [["question_id", 3]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mQuestion Load (0.1ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1  [["id", 7]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 1)  [["question_id", 3]]
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mQuestion Load (0.1ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1[0m  [["id", 10]]
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 1)[0m  [["question_id", 4]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["user_id", 1], ["answer_choice_id", 10], ["created_at", "2015-07-09 21:33:28.290924"], ["updated_at", "2015-07-09 21:33:28.290924"]]
+  [1m[36m (5.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mQuestion Load (0.5ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mAnswerChoice Load (0.2ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 3]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?  [["answer_choice_id", 7]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 8]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mAnswerChoice Load (0.1ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 3]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?  [["answer_choice_id", 7]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 8]]
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mAnswerChoice Load (0.2ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 3]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?  [["answer_choice_id", 7]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 8]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mAnswerChoice Load (0.1ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 2]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?  [["answer_choice_id", 4]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 5]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?  [["answer_choice_id", 6]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = ? LIMIT 1  [["id", 8]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_choice_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = ? AND (responses.id IS NOT NULL AND responses.id IS NOT NULL) AND (user_id = 4)  [["question_id", 3]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "responses" ("user_id", "answer_choice_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["user_id", 4], ["answer_choice_id", 8], ["created_at", "2015-07-09 21:44:00.030847"], ["updated_at", "2015-07-09 21:44:00.030847"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions"[0m
+  [1m[35mAnswerChoice Load (0.1ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", 3]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 7]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?  [["answer_choice_id", 8]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions"[0m
+  [1m[35mAnswerChoice Load (0.1ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", 3]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions"[0m
+  [1m[35mAnswerChoice Load (0.1ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", 3]]
+  [1m[36mResponse Load (0.3ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" IN (7, 8)[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mAnswerChoice Load (0.1ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 3]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mAnswerChoice Load (0.1ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 3]]
+  [1m[35mResponse Load (0.2ms)[0m  SELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" IN (7, 8)
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions"[0m
+  [1m[35mAnswerChoice Load (0.1ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", 3]]
+  [1m[36mResponse Load (0.3ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."answer_choice_id" IN (7, 8)[0m
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mAnswerChoice Load (0.1ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 3]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?  [["answer_choice_id", 7]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 8]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT "questions".* FROM "questions"
+  [1m[36mAnswerChoice Load (0.1ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?[0m  [["question_id", 5]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?  [["answer_choice_id", 12]]
+  [1m[36mQuestion Load (0.2ms)[0m  [1mSELECT "questions".* FROM "questions"[0m
+  [1m[35mAnswerChoice Load (0.1ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = ?  [["question_id", 4]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 9]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?  [["answer_choice_id", 10]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_choice_id" = ?[0m  [["answer_choice_id", 11]]

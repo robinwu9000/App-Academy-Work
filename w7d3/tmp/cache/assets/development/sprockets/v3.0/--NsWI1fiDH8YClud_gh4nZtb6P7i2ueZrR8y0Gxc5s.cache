@@ -1,0 +1,1 @@
+I"øfunction(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<ul>\n ');  posts.each(function(post) { ; __p.push('\n   <li>',  post.escape("title") ,'</li>\n ');  }) ; __p.push('\n</ul>\n');}return __p.join('');}:ET

@@ -1,0 +1,1270 @@
+  [1m[36m (1.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20150708203804)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d3/urlshortener/url_shortener/db/migrate/20150708203804_create_users.rb:6)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150708203804"]]
+  [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateShortenedUrls (20150708204848)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "shortened_urls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "long_url" text NOT NULL, "short_url" text NOT NULL, "submitter_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_shortened_urls_on_submitter_id" ON "shortened_urls" ("submitter_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_shortened_urls_on_short_url" ON "shortened_urls" ("short_url")[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150708204848"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36m (0.3ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.5ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'irene.foelschow@gmail.com' LIMIT 1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["email", "irene.foelschow@gmail.com"], ["created_at", "2015-07-08 21:25:22.948113"], ["updated_at", "2015-07-08 21:25:22.948113"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'irene.foelschow@gmail.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'cat' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)  [["email", "cat"], ["created_at", "2015-07-08 21:25:57.844621"], ["updated_at", "2015-07-08 21:25:57.844621"]]
+  [1m[36m (5.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'dog' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)  [["email", "dog"], ["created_at", "2015-07-08 21:26:04.539319"], ["updated_at", "2015-07-08 21:26:04.539319"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'Ned@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)  [["email", "Ned@appacademy.io"], ["created_at", "2015-07-08 21:26:19.923265"], ["updated_at", "2015-07-08 21:26:19.923265"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'Ed@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)  [["email", "Ed@appacademy.io"], ["created_at", "2015-07-08 21:27:42.989020"], ["updated_at", "2015-07-08 21:27:42.989020"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'Ted@appacademy.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)  [["email", "ted@appacademy.io"], ["created_at", "2015-07-08 21:28:05.184875"], ["updated_at", "2015-07-08 21:28:05.184875"]]
+  [1m[36m (1.0ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (4.3ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "JXanVcGqXnWHkSrSf_TbOA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'JXanVcGqXnWHkSrSf_TbOA' LIMIT 1
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "JXanVcGqXnWHkSrSf_TbOA"], ["created_at", "2015-07-08 21:32:52.733457"], ["updated_at", "2015-07-08 21:32:52.733457"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "ZK6pUngr0tmqi3ea6gxbYw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'ZK6pUngr0tmqi3ea6gxbYw.com' LIMIT 1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "amazon.com"], ["short_url", "ZK6pUngr0tmqi3ea6gxbYw.com"], ["created_at", "2015-07-08 21:33:46.070800"], ["updated_at", "2015-07-08 21:33:46.070800"]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "XTmFa3fSwQyOJXbwG2qBLg"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'XTmFa3fSwQyOJXbwG2qBLg.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "amazon.com"], ["short_url", "XTmFa3fSwQyOJXbwG2qBLg.com"], ["created_at", "2015-07-08 21:33:54.418202"], ["updated_at", "2015-07-08 21:33:54.418202"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mShortenedUrl Load (0.3ms)[0m  SELECT "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ?  [["submitter_id", 6]]
+  [1m[36mShortenedUrl Load (0.2ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateVisits (20150708213704)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.5ms)[0m  [1mCREATE TABLE "visits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "visitor_id" integer, "short_url_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150708213704"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36m (0.4ms)[0m  [1mSELECT "users"."id" FROM "users"[0m
+  [1m[35m (0.3ms)[0m  SELECT "users"."id", "users"."email" FROM "users"
+  [1m[36m (0.2ms)[0m  [1mSELECT "users"."id" FROM "users"[0m
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (11.2ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 10], ["short_url_id", 1], ["created_at", "2015-07-08 21:47:01.029669"], ["updated_at", "2015-07-08 21:47:01.029669"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36m (36.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.7ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20150708203804)
+  [1m[35m (0.3ms)[0m  BEGIN
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d3/urlshortener/url_shortener/db/migrate/20150708203804_create_users.rb:6)
+  [1m[36m (6.0ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "email" character varying, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_users_on_email" ON "users"  ("email")
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20150708203804"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreateShortenedUrls (20150708204848)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (6.3ms)[0m  CREATE TABLE "shortened_urls" ("id" serial primary key, "long_url" text NOT NULL, "short_url" text NOT NULL, "submitter_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (1.3ms)[0m  [1mCREATE  INDEX  "index_shortened_urls_on_submitter_id" ON "shortened_urls"  ("submitter_id")[0m
+  [1m[35m (1.6ms)[0m  CREATE  INDEX  "index_shortened_urls_on_short_url" ON "shortened_urls"  ("short_url")
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20150708204848"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreateVisits (20150708213704)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "visits" ("id" serial primary key, "visitor_id" integer, "short_url_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (2.2ms)[0m  [1mALTER TABLE "visits" ADD CONSTRAINT "visitor_id"
+FOREIGN KEY ("user_id_id")
+  REFERENCES "user_id" ("id")
+[0m
+PG::UndefinedTable: ERROR:  relation "user_id" does not exist
+: ALTER TABLE "visits" ADD CONSTRAINT "visitor_id"
+FOREIGN KEY ("user_id_id")
+  REFERENCES "user_id" ("id")
+
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateVisits (20150708213704)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (4.5ms)[0m  [1mCREATE TABLE "visits" ("id" serial primary key, "visitor_id" integer, "short_url_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (32.2ms)[0m  ALTER TABLE "visits" ADD CONSTRAINT "fk_rails_b156c396f4"
+FOREIGN KEY ("visitor_id")
+  REFERENCES "users" ("id")
+
+  [1m[36m (2.2ms)[0m  [1mALTER TABLE "visits" ADD CONSTRAINT "fk_rails_b406ad2b6e"
+FOREIGN KEY ("short_url_id")
+  REFERENCES "shortened_urls" ("id")
+[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20150708213704"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (4.7ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'shortened_urls'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (4.1ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (3.9ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'visits'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (21.3ms)[0m  INSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["visitor_id", 1], ["short_url_id", 1], ["created_at", "2015-07-08 21:53:03.677335"], ["updated_at", "2015-07-08 21:53:03.677335"]]
+PG::ForeignKeyViolation: ERROR:  insert or update on table "visits" violates foreign key constraint "fk_rails_b156c396f4"
+DETAIL:  Key (visitor_id)=(1) is not present in table "users".
+: INSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "shortened_urls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "long_url" text NOT NULL, "short_url" text NOT NULL, "submitter_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.2ms)[0m  [1mCREATE  INDEX "index_shortened_urls_on_short_url" ON "shortened_urls" ("short_url")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX "index_shortened_urls_on_submitter_id" ON "shortened_urls" ("submitter_id")[0m
+  [1m[35m (1.2ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.2ms)[0m  CREATE TABLE "visits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "visitor_id" integer, "short_url_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.2ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (1.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150708213704')
+  [1m[36m (1.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150708203804')[0m
+  [1m[35m (1.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150708204848')
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "shortened_urls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "long_url" text NOT NULL, "short_url" text NOT NULL, "submitter_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (1.1ms)[0m  [1mCREATE  INDEX "index_shortened_urls_on_short_url" ON "shortened_urls" ("short_url")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX "index_shortened_urls_on_submitter_id" ON "shortened_urls" ("submitter_id")[0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (1.4ms)[0m  [1mCREATE  INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (1.9ms)[0m  CREATE TABLE "visits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "visitor_id" integer, "short_url_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150708213704')
+  [1m[36m (1.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150708203804')[0m
+  [1m[35m (1.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150708204848')
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateVisits (20150708213704)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (10.5ms)[0m  DROP TABLE "visits"
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20150708213704"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateVisits (20150708213704)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "visits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "visitor_id" integer, "short_url_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150708213704"]]
+  [1m[36m (5.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateVisits (20150708213704)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  DROP TABLE "visits"
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20150708213704"]]
+  [1m[35m (6.0ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateShortenedUrls (20150708204848)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m  DROP INDEX "index_shortened_urls_on_short_url"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+[0m
+  [1m[35m (1.0ms)[0m  DROP INDEX "index_shortened_urls_on_submitter_id"
+  [1m[36m (0.2ms)[0m  [1mDROP TABLE "shortened_urls"[0m
+  [1m[35mSQL (0.2ms)[0m  DELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?  [["version", "20150708204848"]]
+  [1m[36m (113.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateUsers (20150708203804)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+  [1m[36m (0.4ms)[0m  [1mDROP INDEX "index_users_on_email"[0m
+  [1m[35m (1.2ms)[0m  DROP TABLE "users"
+  [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = ?[0m  [["version", "20150708203804"]]
+  [1m[35m (5.6ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20150708203804)
+  [1m[35m (0.1ms)[0m  begin transaction
+DEPRECATION WARNING: `#timestamp` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d3/urlshortener/url_shortener/db/migrate/20150708203804_create_users.rb:6)
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150708203804"]]
+  [1m[36m (5.6ms)[0m  [1mcommit transaction[0m
+Migrating to CreateShortenedUrls (20150708204848)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "shortened_urls" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "long_url" text NOT NULL, "short_url" text NOT NULL, "submitter_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_shortened_urls_on_submitter_id" ON "shortened_urls" ("submitter_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_shortened_urls_on_short_url" ON "shortened_urls" ("short_url")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150708204848"]]
+  [1m[35m (1.1ms)[0m  commit transaction
+Migrating to CreateVisits (20150708213704)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "visits" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "visitor_id" integer, "short_url_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150708213704"]]
+  [1m[35m (1.2ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'sample@email.com' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["email", "sample@email.com"], ["created_at", "2015-07-08 22:00:56.658393"], ["updated_at", "2015-07-08 22:00:56.658393"]]
+  [1m[35m (0.9ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'another@email.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["email", "another@email.com"], ["created_at", "2015-07-08 22:01:07.699779"], ["updated_at", "2015-07-08 22:01:07.699779"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'CAPITALS@email.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["email", "capitals@email.com"], ["created_at", "2015-07-08 22:01:15.747628"], ["updated_at", "2015-07-08 22:01:15.747628"]]
+  [1m[35m (5.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = '123agasd73@email.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["email", "123agasd73@email.com"], ["created_at", "2015-07-08 22:01:26.946739"], ["updated_at", "2015-07-08 22:01:26.946739"]]
+  [1m[35m (5.5ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "DW_leetfy4H3kDfpSsQyjQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'DW_leetfy4H3kDfpSsQyjQ.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 3], ["long_url", "yahoo.com"], ["short_url", "DW_leetfy4H3kDfpSsQyjQ.com"], ["created_at", "2015-07-08 22:02:19.927560"], ["updated_at", "2015-07-08 22:02:19.927560"]]
+  [1m[36m (5.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "bfIIRUbryLIa3ljfZGYW4Q"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'bfIIRUbryLIa3ljfZGYW4Q.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 3], ["long_url", "google.com"], ["short_url", "bfIIRUbryLIa3ljfZGYW4Q.com"], ["created_at", "2015-07-08 22:02:27.810142"], ["updated_at", "2015-07-08 22:02:27.810142"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "7vP1tzpl7_-mfn9Az7gDfQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '7vP1tzpl7_-mfn9Az7gDfQ.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 4], ["long_url", "google.com"], ["short_url", "7vP1tzpl7_-mfn9Az7gDfQ.com"], ["created_at", "2015-07-08 22:02:31.073649"], ["updated_at", "2015-07-08 22:02:31.073649"]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "jOIUq_FkSAUnxnsgc8zUgA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'jOIUq_FkSAUnxnsgc8zUgA.com' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 2], ["long_url", "abc.com"], ["short_url", "jOIUq_FkSAUnxnsgc8zUgA.com"], ["created_at", "2015-07-08 22:02:49.569340"], ["updated_at", "2015-07-08 22:02:49.569340"]]
+  [1m[35m (5.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (1.0ms)[0m  INSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["visitor_id", 1], ["short_url_id", 3], ["created_at", "2015-07-08 22:08:52.600329"], ["updated_at", "2015-07-08 22:08:52.600329"]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 1], ["short_url_id", 4], ["created_at", "2015-07-08 22:08:56.551177"], ["updated_at", "2015-07-08 22:08:56.551177"]]
+  [1m[35m (5.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["visitor_id", 1], ["short_url_id", 2], ["created_at", "2015-07-08 22:08:58.567675"], ["updated_at", "2015-07-08 22:08:58.567675"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 1], ["short_url_id", 1], ["created_at", "2015-07-08 22:09:00.614701"], ["updated_at", "2015-07-08 22:09:00.614701"]]
+  [1m[35m (5.9ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (110.0ms)[0m  INSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["visitor_id", 2], ["short_url_id", 1], ["created_at", "2015-07-08 22:09:09.399318"], ["updated_at", "2015-07-08 22:09:09.399318"]]
+  [1m[36m (1895.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 3], ["short_url_id", 1], ["created_at", "2015-07-08 22:09:14.294729"], ["updated_at", "2015-07-08 22:09:14.294729"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36mVisit Load (0.2ms)[0m  [1mSELECT  "visits".* FROM "visits" WHERE "visits"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mVisit Load (0.2ms)[0m  SELECT  "visits".* FROM "visits" WHERE "visits"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mShortenedUrl Load (0.2ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mUser Load (0.3ms)[0m  SELECT "users".* FROM "users" INNER JOIN "visits" ON "users"."id" = "visits"."visitor_id" WHERE "visits"."short_url_id" = ?  [["short_url_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mShortenedUrl Load (0.2ms)[0m  SELECT "shortened_urls".* FROM "shortened_urls" INNER JOIN "visits" ON "shortened_urls"."id" = "visits"."short_url_id" WHERE "visits"."visitor_id" = ?  [["visitor_id", 4]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mShortenedUrl Load (0.1ms)[0m  SELECT "shortened_urls".* FROM "shortened_urls" INNER JOIN "visits" ON "shortened_urls"."id" = "visits"."short_url_id" WHERE "visits"."visitor_id" = ?  [["visitor_id", 3]]
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mShortenedUrl Load (0.1ms)[0m  SELECT "shortened_urls".* FROM "shortened_urls" INNER JOIN "visits" ON "shortened_urls"."id" = "visits"."short_url_id" WHERE "visits"."visitor_id" = ?  [["visitor_id", 2]]
+  [1m[36mVisit Load (0.2ms)[0m  [1mSELECT "visits".* FROM "visits"[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mShortenedUrl Load (0.1ms)[0m  [1mSELECT "shortened_urls".* FROM "shortened_urls" INNER JOIN "visits" ON "shortened_urls"."id" = "visits"."short_url_id" WHERE "visits"."visitor_id" = ?[0m  [["visitor_id", 1]]
+  [1m[35mVisit Load (0.2ms)[0m  SELECT "visits"."visitor_id" FROM "visits"
+  [1m[36mVisit Load (0.3ms)[0m  [1mSELECT DISTINCT "visits"."visitor_id" FROM "visits"[0m
+  [1m[35m (0.3ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits"
+  [1m[36m (0.6ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT visitor_id, {:shortened_url_id=>1}) FROM "visits"[0m
+SQLite3::SQLException: unrecognized token: "{": SELECT DISTINCT COUNT(DISTINCT visitor_id, {:shortened_url_id=>1}) FROM "visits"
+  [1m[35m (0.5ms)[0m  SELECT DISTINCT COUNT(DISTINCT visitor_id, {:short_url_id=>1}) FROM "visits"
+SQLite3::SQLException: unrecognized token: "{": SELECT DISTINCT COUNT(DISTINCT visitor_id, {:short_url_id=>1}) FROM "visits"
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ?[0m  [["short_url_id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ?  [["short_url_id", 2]]
+  [1m[36m (0.2ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ?[0m  [["short_url_id", 3]]
+  [1m[35m (0.3ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits"
+  [1m[36mShortenedUrl Load (0.2ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.3ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" IS NULL
+  [1m[36mVisit Load (0.2ms)[0m  [1mSELECT "visits".* FROM "visits"[0m
+  [1m[35mShortenedUrl Load (0.2ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ?[0m  [["short_url_id", 2]]
+  [1m[35mShortenedUrl Load (0.2ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT("visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ?[0m  [["short_url_id", 1]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 3], ["short_url_id", 1], ["created_at", "2015-07-08 22:34:55.061913"], ["updated_at", "2015-07-08 22:34:55.061913"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["visitor_id", 3], ["short_url_id", 1], ["created_at", "2015-07-08 22:34:57.530996"], ["updated_at", "2015-07-08 22:34:57.530996"]]
+  [1m[36m (5.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 3], ["short_url_id", 1], ["created_at", "2015-07-08 22:34:57.762548"], ["updated_at", "2015-07-08 22:34:57.762548"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["visitor_id", 3], ["short_url_id", 1], ["created_at", "2015-07-08 22:34:58.010526"], ["updated_at", "2015-07-08 22:34:58.010526"]]
+  [1m[36m (1.9ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 3], ["short_url_id", 1], ["created_at", "2015-07-08 22:34:58.234474"], ["updated_at", "2015-07-08 22:34:58.234474"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["visitor_id", 3], ["short_url_id", 1], ["created_at", "2015-07-08 22:34:58.426525"], ["updated_at", "2015-07-08 22:34:58.426525"]]
+  [1m[36m (2.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 3], ["short_url_id", 1], ["created_at", "2015-07-08 22:34:58.634368"], ["updated_at", "2015-07-08 22:34:58.634368"]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["visitor_id", 3], ["short_url_id", 1], ["created_at", "2015-07-08 22:34:59.290687"], ["updated_at", "2015-07-08 22:34:59.290687"]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  SELECT COUNT("visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ?  [["short_url_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ?[0m  [["short_url_id", 1]]
+  [1m[35mShortenedUrl Load (0.2ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ?[0m  [["short_url_id", 1]]
+  [1m[35mShortenedUrl Load (0.2ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at  < '2015-07-08 22:35:56.829757')[0m  [["short_url_id", 1]]
+  [1m[35mShortenedUrl Load (23.8ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (17.8ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at  < '2015-07-08 22:46:19.692678')[0m  [["short_url_id", 1]]
+  [1m[35m (0.4ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at  < '2015-07-08 22:46:59.240639')  [["short_url_id", 1]]
+  [1m[36mShortenedUrl Load (0.2ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at  < '2015-07-08 22:47:16.162745')  [["short_url_id", 1]]
+  [1m[36mShortenedUrl Load (0.2ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:48:30.145261')  [["short_url_id", 1]]
+  [1m[36mShortenedUrl Load (0.2ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:39:43.448649')  [["short_url_id", 1]]
+  [1m[36mShortenedUrl Load (0.2ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  SELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:00:00.560224')  [["short_url_id", 1]]
+  [1m[36mVisit Load (0.2ms)[0m  [1mSELECT "visits".* FROM "visits"[0m
+  [1m[35mShortenedUrl Load (0.2ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:21:16.223513')[0m  [["short_url_id", 1]]
+  [1m[35mShortenedUrl Load (0.1ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:21:34.643109')[0m  [["short_url_id", 2]]
+  [1m[35mShortenedUrl Load (0.2ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:43:52.427656')[0m  [["short_url_id", 2]]
+  [1m[35mShortenedUrl Load (0.2ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:44:00.392021')[0m  [["short_url_id", 1]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (41.9ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 4], ["short_url_id", 1], ["created_at", "2015-07-08 22:54:17.468794"], ["updated_at", "2015-07-08 22:54:17.468794"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "visits"."visitor_id") FROM "visits" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:44:23.519550')[0m  [["short_url_id", 1]]
+  [1m[35mShortenedUrl Load (0.2ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mShortenedUrl Load (0.2ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.2ms)[0m  SELECT DISTINCT COUNT(DISTINCT "users"."id") FROM "users" INNER JOIN "visits" ON "users"."id" = "visits"."visitor_id" WHERE "visits"."short_url_id" = ?  [["short_url_id", 1]]
+  [1m[36mShortenedUrl Load (0.2ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.5ms)[0m  SELECT DISTINCT COUNT(DISTINCT "users"."id") FROM "users" INNER JOIN "visits" ON "users"."id" = "visits"."visitor_id" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:50:58.215588')  [["short_url_id", 1]]
+SQLite3::SQLException: ambiguous column name: created_at: SELECT DISTINCT COUNT(DISTINCT "users"."id") FROM "users" INNER JOIN "visits" ON "users"."id" = "visits"."visitor_id" WHERE "visits"."short_url_id" = ? AND (created_at > '2015-07-08 22:50:58.215588')
+  [1m[36mVisit Load (0.5ms)[0m  [1mSELECT "visits".* FROM "visits"[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mSELECT DISTINCT COUNT(DISTINCT "shortened_urls"."id") FROM "shortened_urls" INNER JOIN "visits" ON "shortened_urls"."id" = "visits"."short_url_id" WHERE "visits"."visitor_id" = ?[0m  [["visitor_id", 1]]
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1 OFFSET 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1 OFFSET 2[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1 OFFSET 4
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT 1[0m  [["email", "someguy@anotheremail.com"]]
+  [1m[35mShortenedUrl Exists (12.9ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "oqVVQWwEhmAT0fyrvr69Bw"]]
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'oqVVQWwEhmAT0fyrvr69Bw.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[36mUser Load (36.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT 1[0m  [["email", "sample@email.com"]]
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "nTDG0r3EqCreKolnx5RSjw"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'nTDG0r3EqCreKolnx5RSjw.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT 1[0m  [["email", "sample@email.com"]]
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "qazo3MQK99Towu_vfzWWVA"]]
+  [1m[36m (1.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'qazo3MQK99Towu_vfzWWVA.com' LIMIT 1
+  [1m[36mSQL (41.6ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "adshgh.com"], ["short_url", "qazo3MQK99Towu_vfzWWVA.com"], ["created_at", "2015-07-08 23:46:01.951692"], ["updated_at", "2015-07-08 23:46:01.951692"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36mShortenedUrl Load (0.4ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "qazo3MQK99Towu_vfzWWVA.com"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 1], ["short_url_id", 5], ["created_at", "2015-07-08 23:46:18.614928"], ["updated_at", "2015-07-08 23:46:18.614928"]]
+  [1m[35m (5.7ms)[0m  commit transaction
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT 1[0m  [["email", "newemail"]]
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."email" = ? LIMIT 1[0m  [["email", "someguy@yahoo.com"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mUser Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'someguy@yahoo.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("email", "created_at", "updated_at") VALUES (?, ?, ?)  [["email", "someguy@yahoo.com"], ["created_at", "2015-07-08 23:48:43.225317"], ["updated_at", "2015-07-08 23:48:43.225317"]]
+  [1m[36m (5.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "aTvsusQdoGqjVnfbMSa3Lw"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'aTvsusQdoGqjVnfbMSa3Lw' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 5], ["long_url", "treehouse.com"], ["short_url", "aTvsusQdoGqjVnfbMSa3Lw"], ["created_at", "2015-07-08 23:48:49.619315"], ["updated_at", "2015-07-08 23:48:49.619315"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36mShortenedUrl Load (0.4ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "aTvsusQdoGqjVnfbMSa3Lw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "visits" ("visitor_id", "short_url_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["visitor_id", 5], ["short_url_id", 6], ["created_at", "2015-07-08 23:48:59.005328"], ["updated_at", "2015-07-08 23:48:59.005328"]]
+  [1m[35m (5.5ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.3ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "bf_wF24EiiBupfZeM6xlww"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'bf_wF24EiiBupfZeM6xlww' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mShortenedUrl Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "-Ftx4NRD_FeEL4v1KBWaHw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '-Ftx4NRD_FeEL4v1KBWaHw' LIMIT 1[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "google.com"], ["short_url", "-Ftx4NRD_FeEL4v1KBWaHw"], ["created_at", "2015-07-09 00:02:51.039841"], ["updated_at", "2015-07-09 00:02:51.039841"]]
+  [1m[36m (1.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Load (0.3ms)[0m  SELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? LIMIT 1  [["submitter_id", 1]]
+  [1m[36mShortenedUrl Load (0.3ms)[0m  [1mSELECT "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ?[0m  [["submitter_id", 1]]
+  [1m[35mUser Load (46.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "5dFam6JLagMDuViKz4Y3gA"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '5dFam6JLagMDuViKz4Y3gA' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "5dFam6JLagMDuViKz4Y3gA"], ["created_at", "2015-07-09 00:08:07.737749"], ["updated_at", "2015-07-09 00:08:07.737749"]]
+  [1m[36m (5.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "3I3FZLoAgI1pPLFJ_3MBSQ"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '3I3FZLoAgI1pPLFJ_3MBSQ' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "3I3FZLoAgI1pPLFJ_3MBSQ"], ["created_at", "2015-07-09 00:08:08.658246"], ["updated_at", "2015-07-09 00:08:08.658246"]]
+  [1m[35m (5.6ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "XKZ5lTA-bY1TL3o0Kwy9yw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'XKZ5lTA-bY1TL3o0Kwy9yw' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "XKZ5lTA-bY1TL3o0Kwy9yw"], ["created_at", "2015-07-09 00:08:08.947369"], ["updated_at", "2015-07-09 00:08:08.947369"]]
+  [1m[36m (2.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "7b8a0ubap6rPklVulIvi8A"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '7b8a0ubap6rPklVulIvi8A' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "7b8a0ubap6rPklVulIvi8A"], ["created_at", "2015-07-09 00:08:09.207653"], ["updated_at", "2015-07-09 00:08:09.207653"]]
+  [1m[35m (2.0ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "b9_1Kk8OzVOg8A_6Q54bkg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'b9_1Kk8OzVOg8A_6Q54bkg' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "b9_1Kk8OzVOg8A_6Q54bkg"], ["created_at", "2015-07-09 00:08:09.487386"], ["updated_at", "2015-07-09 00:08:09.487386"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "rPJRRhfLHp-Gi_NadpXsmA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'rPJRRhfLHp-Gi_NadpXsmA' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "rPJRRhfLHp-Gi_NadpXsmA"], ["created_at", "2015-07-09 00:08:09.759469"], ["updated_at", "2015-07-09 00:08:09.759469"]]
+  [1m[35m (1.5ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "2xkck6-5tef3r1cVp0ESvg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '2xkck6-5tef3r1cVp0ESvg' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "2xkck6-5tef3r1cVp0ESvg"], ["created_at", "2015-07-09 00:08:10.023514"], ["updated_at", "2015-07-09 00:08:10.023514"]]
+  [1m[36m (2.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "nKoGi7D9yo5iCJBOVRm7uQ"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'nKoGi7D9yo5iCJBOVRm7uQ' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "nKoGi7D9yo5iCJBOVRm7uQ"], ["created_at", "2015-07-09 00:08:10.263379"], ["updated_at", "2015-07-09 00:08:10.263379"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "PGXggKi8AS_a87yg3mR5Xw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'PGXggKi8AS_a87yg3mR5Xw' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "PGXggKi8AS_a87yg3mR5Xw"], ["created_at", "2015-07-09 00:08:10.495395"], ["updated_at", "2015-07-09 00:08:10.495395"]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "Exd7fvPHQrcCUHvKDrQU-g"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'Exd7fvPHQrcCUHvKDrQU-g' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "Exd7fvPHQrcCUHvKDrQU-g"], ["created_at", "2015-07-09 00:08:10.727367"], ["updated_at", "2015-07-09 00:08:10.727367"]]
+  [1m[35m (2.0ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "votAU0ROLdT4W0bSWDZL3g"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'votAU0ROLdT4W0bSWDZL3g' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "votAU0ROLdT4W0bSWDZL3g"], ["created_at", "2015-07-09 00:08:10.935617"], ["updated_at", "2015-07-09 00:08:10.935617"]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "RGGK0QJ2bDxlhJYawYPn7g"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'RGGK0QJ2bDxlhJYawYPn7g' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "RGGK0QJ2bDxlhJYawYPn7g"], ["created_at", "2015-07-09 00:08:11.103404"], ["updated_at", "2015-07-09 00:08:11.103404"]]
+  [1m[35m (2.0ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "iIzyUV_c2Fhi544NmFww1w"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'iIzyUV_c2Fhi544NmFww1w' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "iIzyUV_c2Fhi544NmFww1w"], ["created_at", "2015-07-09 00:08:11.783505"], ["updated_at", "2015-07-09 00:08:11.783505"]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "DrsLW2r1pUeEhYT8CZTHWQ"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'DrsLW2r1pUeEhYT8CZTHWQ' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "stuff"], ["short_url", "DrsLW2r1pUeEhYT8CZTHWQ"], ["created_at", "2015-07-09 00:08:12.394453"], ["updated_at", "2015-07-09 00:08:12.394453"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "nFZavYnan9Q8icegCABs9Q"]]
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'nFZavYnan9Q8icegCABs9Q' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:10:20.375842')  [["submitter_id", 1]]
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "ENElEtzz0oQ9u8hKHapTiA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'ENElEtzz0oQ9u8hKHapTiA' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:10:46.114755')[0m  [["submitter_id", 2]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "ACk6iFsUVmrjye8Kffm7Iw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'ACk6iFsUVmrjye8Kffm7Iw' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:11:12.314119')  [["submitter_id", 2]]
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "VrVp0Ujik58fNIT9hLL3cA"]]
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'VrVp0Ujik58fNIT9hLL3cA' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:11:20.149811')[0m  [["submitter_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 2], ["long_url", "stuff"], ["short_url", "VrVp0Ujik58fNIT9hLL3cA"], ["created_at", "2015-07-09 00:12:20.151008"], ["updated_at", "2015-07-09 00:12:20.151008"]]
+  [1m[36m (5.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "MFVEuK3BqRbd1PC9eO8JfA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'MFVEuK3BqRbd1PC9eO8JfA' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:11:21.490636')[0m  [["submitter_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 2], ["long_url", "stuff"], ["short_url", "MFVEuK3BqRbd1PC9eO8JfA"], ["created_at", "2015-07-09 00:12:21.491871"], ["updated_at", "2015-07-09 00:12:21.491871"]]
+  [1m[36m (6.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "MS8jdrrlwL0p3_Uy7wYnww"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'MS8jdrrlwL0p3_Uy7wYnww' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:11:22.098171')[0m  [["submitter_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 2], ["long_url", "stuff"], ["short_url", "MS8jdrrlwL0p3_Uy7wYnww"], ["created_at", "2015-07-09 00:12:22.099541"], ["updated_at", "2015-07-09 00:12:22.099541"]]
+  [1m[36m (5.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "qK3e_VeM7GPmTibq2Tb-eA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'qK3e_VeM7GPmTibq2Tb-eA' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:11:22.578066')[0m  [["submitter_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 2], ["long_url", "stuff"], ["short_url", "qK3e_VeM7GPmTibq2Tb-eA"], ["created_at", "2015-07-09 00:12:22.579500"], ["updated_at", "2015-07-09 00:12:22.579500"]]
+  [1m[36m (5.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "i7uU5XLnxR2sKmhMKd0ybw"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'i7uU5XLnxR2sKmhMKd0ybw' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:11:23.090934')[0m  [["submitter_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 2], ["long_url", "stuff"], ["short_url", "i7uU5XLnxR2sKmhMKd0ybw"], ["created_at", "2015-07-09 00:12:23.092213"], ["updated_at", "2015-07-09 00:12:23.092213"]]
+  [1m[36m (5.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "EawFoPZLn1PX5eQ-QS88Dg"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'EawFoPZLn1PX5eQ-QS88Dg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:11:23.666006')[0m  [["submitter_id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 2], ["long_url", "stuff"], ["short_url", "EawFoPZLn1PX5eQ-QS88Dg"], ["created_at", "2015-07-09 00:12:23.667312"], ["updated_at", "2015-07-09 00:12:23.667312"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "UUp8cb385vSGFyKo_jGzDQ"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'UUp8cb385vSGFyKo_jGzDQ' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:11:24.282203')[0m  [["submitter_id", 2]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddPremiumColumnToUsers (20150709001445)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (14.3ms)[0m  [1mALTER TABLE "users" ADD "premium" boolean DEFAULT 'f'[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150709001445"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_short_url' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_shortened_urls_on_submitter_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mUser Exists (0.2ms)[0m  SELECT  1 AS one FROM "users" WHERE "users"."email" = 'blah' LIMIT 1
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "users" ("email", "premium", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["email", "blah"], ["premium", "t"], ["created_at", "2015-07-09 00:17:59.719015"], ["updated_at", "2015-07-09 00:17:59.719015"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35mShortenedUrl Exists (0.3ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "YyjK9-AAR2pBpVCCTgE4GQ"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'YyjK9-AAR2pBpVCCTgE4GQ' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "a3-nOmV6gcaL8OQD71GnIg"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'a3-nOmV6gcaL8OQD71GnIg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "rn2SQkzPXIv2A1XTBdcmrg"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'rn2SQkzPXIv2A1XTBdcmrg' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "Bqz3xmiDSvi5iaN5chHFLA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'Bqz3xmiDSvi5iaN5chHFLA' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "ow9Fsp8E5gRaB_cTzmvWRA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'ow9Fsp8E5gRaB_cTzmvWRA' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "m_--vwKw5vW9F-GpaTZu1w"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'm_--vwKw5vW9F-GpaTZu1w' LIMIT 1
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "m_--vwKw5vW9F-GpaTZu1w"], ["created_at", "2015-07-09 00:21:23.878692"], ["updated_at", "2015-07-09 00:21:23.878692"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "iinVnRE4jVE_K54o38B2Bg"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'iinVnRE4jVE_K54o38B2Bg' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "iinVnRE4jVE_K54o38B2Bg"], ["created_at", "2015-07-09 00:21:25.454052"], ["updated_at", "2015-07-09 00:21:25.454052"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "Nc2JQoYAXfSuCdKrghql3A"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'Nc2JQoYAXfSuCdKrghql3A' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "Nc2JQoYAXfSuCdKrghql3A"], ["created_at", "2015-07-09 00:21:26.037647"], ["updated_at", "2015-07-09 00:21:26.037647"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "h6BAP_zojEavFsRVc0cxJA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'h6BAP_zojEavFsRVc0cxJA' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "h6BAP_zojEavFsRVc0cxJA"], ["created_at", "2015-07-09 00:21:26.677638"], ["updated_at", "2015-07-09 00:21:26.677638"]]
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "VtIZTfVYBITp_6ymZeSuoA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'VtIZTfVYBITp_6ymZeSuoA' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "VtIZTfVYBITp_6ymZeSuoA"], ["created_at", "2015-07-09 00:21:27.342058"], ["updated_at", "2015-07-09 00:21:27.342058"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "_tcZBnGTYtcacZOIVnbk_Q"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '_tcZBnGTYtcacZOIVnbk_Q' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "_tcZBnGTYtcacZOIVnbk_Q"], ["created_at", "2015-07-09 00:21:27.949984"], ["updated_at", "2015-07-09 00:21:27.949984"]]
+  [1m[36m (2.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "ssNGQJbu5WOmaTFdkkRaew"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'ssNGQJbu5WOmaTFdkkRaew' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "ssNGQJbu5WOmaTFdkkRaew"], ["created_at", "2015-07-09 00:21:28.542423"], ["updated_at", "2015-07-09 00:21:28.542423"]]
+  [1m[36m (1.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "lLte2xv9hUkv9kn9pb8auQ"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'lLte2xv9hUkv9kn9pb8auQ' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "lLte2xv9hUkv9kn9pb8auQ"], ["created_at", "2015-07-09 00:21:29.119562"], ["updated_at", "2015-07-09 00:21:29.119562"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "JKQoyMgIFAWG6e8ewdK5Rw"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'JKQoyMgIFAWG6e8ewdK5Rw' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "JKQoyMgIFAWG6e8ewdK5Rw"], ["created_at", "2015-07-09 00:21:29.735117"], ["updated_at", "2015-07-09 00:21:29.735117"]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "I0IPBargeWqwbxFL3zpthA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'I0IPBargeWqwbxFL3zpthA' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "I0IPBargeWqwbxFL3zpthA"], ["created_at", "2015-07-09 00:21:30.301814"], ["updated_at", "2015-07-09 00:21:30.301814"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "pxMbBXkF6aT7iUAQky8JTA"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'pxMbBXkF6aT7iUAQky8JTA' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "pxMbBXkF6aT7iUAQky8JTA"], ["created_at", "2015-07-09 00:21:30.877120"], ["updated_at", "2015-07-09 00:21:30.877120"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "gsGHb1NglSfL0s2PIWMD-Q"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'gsGHb1NglSfL0s2PIWMD-Q' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 6]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "gsGHb1NglSfL0s2PIWMD-Q"], ["created_at", "2015-07-09 00:21:31.438956"], ["updated_at", "2015-07-09 00:21:31.438956"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "THo6kTCbE2mlW-iisO84MQ"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'THo6kTCbE2mlW-iisO84MQ' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:20:37.022451')  [["submitter_id", 4]]
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "5mnUHgWJ8BidzND7Dek_8A"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '5mnUHgWJ8BidzND7Dek_8A' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 4]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:22:40.411804')[0m  [["submitter_id", 4]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "xmFLKVYlKPM1ZBZRdr2cNg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'xmFLKVYlKPM1ZBZRdr2cNg' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:22:56.410452')[0m  [["submitter_id", 3]]
+  [1m[35m (0.2ms)[0m  rollback transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "o6SwCuUwQHS69bvXfhMtvg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'o6SwCuUwQHS69bvXfhMtvg' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:24:26.610047')[0m  [["submitter_id", 3]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "pKq2qgjANMC8q5rEn7dweA"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'pKq2qgjANMC8q5rEn7dweA' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:24:43.728138')[0m  [["submitter_id", 3]]
+  [1m[35mSQL (2.2ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 3], ["long_url", "google.com"], ["short_url", "pKq2qgjANMC8q5rEn7dweA"], ["created_at", "2015-07-09 00:25:43.729736"], ["updated_at", "2015-07-09 00:25:43.729736"]]
+  [1m[36m (2.0ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "LM3-B510n8tnMb92NvxY0Q"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'LM3-B510n8tnMb92NvxY0Q' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:24:50.288577')  [["submitter_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 3], ["long_url", "google.com"], ["short_url", "LM3-B510n8tnMb92NvxY0Q"], ["created_at", "2015-07-09 00:25:50.289785"], ["updated_at", "2015-07-09 00:25:50.289785"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "NBTbyoLvK20KFlC7ga16vQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'NBTbyoLvK20KFlC7ga16vQ' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:24:51.135877')[0m  [["submitter_id", 3]]
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 3], ["long_url", "google.com"], ["short_url", "NBTbyoLvK20KFlC7ga16vQ"], ["created_at", "2015-07-09 00:25:51.137027"], ["updated_at", "2015-07-09 00:25:51.137027"]]
+  [1m[36m (1.8ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "5h4MXMR3FbbSwFhoiu9vXQ"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '5h4MXMR3FbbSwFhoiu9vXQ' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:24:52.127853')  [["submitter_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 3], ["long_url", "google.com"], ["short_url", "5h4MXMR3FbbSwFhoiu9vXQ"], ["created_at", "2015-07-09 00:25:52.129032"], ["updated_at", "2015-07-09 00:25:52.129032"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "5c0li5-kBTwOslFxvbwGFg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '5c0li5-kBTwOslFxvbwGFg' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:24:53.087406')[0m  [["submitter_id", 3]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 3], ["long_url", "google.com"], ["short_url", "5c0li5-kBTwOslFxvbwGFg"], ["created_at", "2015-07-09 00:25:53.088572"], ["updated_at", "2015-07-09 00:25:53.088572"]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "R0MCPjIp1CNT7fczPlc6yw"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'R0MCPjIp1CNT7fczPlc6yw' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:24:53.927313')  [["submitter_id", 3]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 3], ["long_url", "google.com"], ["short_url", "R0MCPjIp1CNT7fczPlc6yw"], ["created_at", "2015-07-09 00:25:53.928477"], ["updated_at", "2015-07-09 00:25:53.928477"]]
+  [1m[35m (1.8ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "CcHrbzGr4h4tDFlCQWtbpA"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'CcHrbzGr4h4tDFlCQWtbpA' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:24:54.879498')[0m  [["submitter_id", 3]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "e_zDajdGgezqsPRb3MVCUg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'e_zDajdGgezqsPRb3MVCUg' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE "shortened_urls"."submitter_id" = ? AND (created_at > '2015-07-09 00:24:58.255276')[0m  [["submitter_id", 3]]
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "UmYLDsXw9bDIBCB9BJ3eJA"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'UmYLDsXw9bDIBCB9BJ3eJA' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.9ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "UmYLDsXw9bDIBCB9BJ3eJA"], ["created_at", "2015-07-09 00:26:02.095761"], ["updated_at", "2015-07-09 00:26:02.095761"]]
+  [1m[35m (5.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "W8_9WMVmd_WVFX0lmcTPkg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'W8_9WMVmd_WVFX0lmcTPkg' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "W8_9WMVmd_WVFX0lmcTPkg"], ["created_at", "2015-07-09 00:26:03.262118"], ["updated_at", "2015-07-09 00:26:03.262118"]]
+  [1m[35m (1.8ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "ZUw5TZIcUtyg3CtYNSfE1Q"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'ZUw5TZIcUtyg3CtYNSfE1Q' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "ZUw5TZIcUtyg3CtYNSfE1Q"], ["created_at", "2015-07-09 00:26:03.607111"], ["updated_at", "2015-07-09 00:26:03.607111"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "mctD1E1DtOLaORntdz3flg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'mctD1E1DtOLaORntdz3flg' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "mctD1E1DtOLaORntdz3flg"], ["created_at", "2015-07-09 00:26:03.886408"], ["updated_at", "2015-07-09 00:26:03.886408"]]
+  [1m[35m (1.8ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "MjAQEXk8Ek6OcqVL5UL_lQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'MjAQEXk8Ek6OcqVL5UL_lQ' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "MjAQEXk8Ek6OcqVL5UL_lQ"], ["created_at", "2015-07-09 00:26:04.150829"], ["updated_at", "2015-07-09 00:26:04.150829"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "jL0L_lGEkPRHRvoyBCpojw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'jL0L_lGEkPRHRvoyBCpojw' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "jL0L_lGEkPRHRvoyBCpojw"], ["created_at", "2015-07-09 00:26:04.454296"], ["updated_at", "2015-07-09 00:26:04.454296"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "gtGXWA7W7pqqothZLkjrOw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'gtGXWA7W7pqqothZLkjrOw' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "gtGXWA7W7pqqothZLkjrOw"], ["created_at", "2015-07-09 00:26:04.743178"], ["updated_at", "2015-07-09 00:26:04.743178"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "2bgOPvJHvBGzlAAlNOjKbQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '2bgOPvJHvBGzlAAlNOjKbQ' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "2bgOPvJHvBGzlAAlNOjKbQ"], ["created_at", "2015-07-09 00:26:05.023458"], ["updated_at", "2015-07-09 00:26:05.023458"]]
+  [1m[35m (1.9ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "s-uKBmQfxtXo5HPsfjYxYw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 's-uKBmQfxtXo5HPsfjYxYw' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "s-uKBmQfxtXo5HPsfjYxYw"], ["created_at", "2015-07-09 00:26:05.319367"], ["updated_at", "2015-07-09 00:26:05.319367"]]
+  [1m[35m (1.8ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "pYSBJ4daTOBd1abWlzR4Vg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'pYSBJ4daTOBd1abWlzR4Vg' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "pYSBJ4daTOBd1abWlzR4Vg"], ["created_at", "2015-07-09 00:26:05.598720"], ["updated_at", "2015-07-09 00:26:05.598720"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "19u1jb_OXwlAPjUd1xEOWQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '19u1jb_OXwlAPjUd1xEOWQ' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "19u1jb_OXwlAPjUd1xEOWQ"], ["created_at", "2015-07-09 00:26:05.886671"], ["updated_at", "2015-07-09 00:26:05.886671"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "_ZTK3htzO6vVFW_X0PnzrA"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '_ZTK3htzO6vVFW_X0PnzrA' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "_ZTK3htzO6vVFW_X0PnzrA"], ["created_at", "2015-07-09 00:26:06.157778"], ["updated_at", "2015-07-09 00:26:06.157778"]]
+  [1m[35m (5.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "El7Hf9VI6Z6_nkfALAcm4A"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'El7Hf9VI6Z6_nkfALAcm4A' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "El7Hf9VI6Z6_nkfALAcm4A"], ["created_at", "2015-07-09 00:26:06.423265"], ["updated_at", "2015-07-09 00:26:06.423265"]]
+  [1m[35m (1.8ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "7U0bMiXioFkRciNjScZRnQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '7U0bMiXioFkRciNjScZRnQ' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "7U0bMiXioFkRciNjScZRnQ"], ["created_at", "2015-07-09 00:26:06.686989"], ["updated_at", "2015-07-09 00:26:06.686989"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "IXy5i3FgY6rY7whzs3ZuQQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'IXy5i3FgY6rY7whzs3ZuQQ' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "IXy5i3FgY6rY7whzs3ZuQQ"], ["created_at", "2015-07-09 00:26:06.942551"], ["updated_at", "2015-07-09 00:26:06.942551"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "M_cGPr6inP2upBm50Frxyw"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'M_cGPr6inP2upBm50Frxyw' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "M_cGPr6inP2upBm50Frxyw"], ["created_at", "2015-07-09 00:26:07.182806"], ["updated_at", "2015-07-09 00:26:07.182806"]]
+  [1m[35m (1.8ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "aCloRdZOLe4uMI9uonFTEQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'aCloRdZOLe4uMI9uonFTEQ' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "aCloRdZOLe4uMI9uonFTEQ"], ["created_at", "2015-07-09 00:26:07.439368"], ["updated_at", "2015-07-09 00:26:07.439368"]]
+  [1m[35m (1.3ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "yEFhxRfChFOaVJO1QsG59A"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'yEFhxRfChFOaVJO1QsG59A' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "yEFhxRfChFOaVJO1QsG59A"], ["created_at", "2015-07-09 00:26:07.687181"], ["updated_at", "2015-07-09 00:26:07.687181"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "JrnfPGLGbCe4KNM3bR8mMA"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'JrnfPGLGbCe4KNM3bR8mMA' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "JrnfPGLGbCe4KNM3bR8mMA"], ["created_at", "2015-07-09 00:26:07.917620"], ["updated_at", "2015-07-09 00:26:07.917620"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "cbOJm95MEJcxztUPpSp51g"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'cbOJm95MEJcxztUPpSp51g' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "cbOJm95MEJcxztUPpSp51g"], ["created_at", "2015-07-09 00:26:08.133551"], ["updated_at", "2015-07-09 00:26:08.133551"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "Qc1Ion9v6NEo671FuU8m5A"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'Qc1Ion9v6NEo671FuU8m5A' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 6], ["long_url", "google.com"], ["short_url", "Qc1Ion9v6NEo671FuU8m5A"], ["created_at", "2015-07-09 00:26:08.406612"], ["updated_at", "2015-07-09 00:26:08.406612"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Load (0.1ms)[0m  [1mSELECT  "shortened_urls".* FROM "shortened_urls" WHERE "shortened_urls"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "users" INNER JOIN "visits" ON "users"."id" = "visits"."visitor_id" WHERE "visits"."short_url_id" = ?  [["short_url_id", 1]]
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "1nvmgHSBLNqHOwc8jHigpg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = '1nvmgHSBLNqHOwc8jHigpg' LIMIT 1[0m
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE (submitter_id = 1 AND created_at > '2015-07-09 00:43:53.413894')[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "google.com"], ["short_url", "1nvmgHSBLNqHOwc8jHigpg"], ["created_at", "2015-07-09 00:44:53.415394"], ["updated_at", "2015-07-09 00:44:53.415394"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "peN7JETRYmE3Yxx_MpiwNg"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'peN7JETRYmE3Yxx_MpiwNg' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "shortened_urls" WHERE (submitter_id = 1 AND created_at > '2015-07-09 00:43:55.358032')
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "google.com"], ["short_url", "peN7JETRYmE3Yxx_MpiwNg"], ["created_at", "2015-07-09 00:44:55.359238"], ["updated_at", "2015-07-09 00:44:55.359238"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "DZ5l4xQgFzFFgxRtYmDlAA"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'DZ5l4xQgFzFFgxRtYmDlAA' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE (submitter_id = 1 AND created_at > '2015-07-09 00:43:55.901380')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "google.com"], ["short_url", "DZ5l4xQgFzFFgxRtYmDlAA"], ["created_at", "2015-07-09 00:44:55.902611"], ["updated_at", "2015-07-09 00:44:55.902611"]]
+  [1m[36m (1.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "OyGK-xEbA7DdWwWqeHqzkg"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'OyGK-xEbA7DdWwWqeHqzkg' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "shortened_urls" WHERE (submitter_id = 1 AND created_at > '2015-07-09 00:43:56.405397')
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "google.com"], ["short_url", "OyGK-xEbA7DdWwWqeHqzkg"], ["created_at", "2015-07-09 00:44:56.406606"], ["updated_at", "2015-07-09 00:44:56.406606"]]
+  [1m[35m (1.4ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "lfLnM2ZuVIRcA1Rq319lCQ"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'lfLnM2ZuVIRcA1Rq319lCQ' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE (submitter_id = 1 AND created_at > '2015-07-09 00:43:56.829429')[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["submitter_id", 1], ["long_url", "google.com"], ["short_url", "lfLnM2ZuVIRcA1Rq319lCQ"], ["created_at", "2015-07-09 00:44:56.830772"], ["updated_at", "2015-07-09 00:44:56.830772"]]
+  [1m[36m (5.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mShortenedUrl Exists (0.2ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1  [["short_url", "EDU_uStecjCpsAlxZDet5Q"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mShortenedUrl Exists (0.1ms)[0m  SELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'EDU_uStecjCpsAlxZDet5Q' LIMIT 1
+  [1m[36mUser Load (0.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.1ms)[0m  SELECT COUNT(*) FROM "shortened_urls" WHERE (submitter_id = 1 AND created_at > '2015-07-09 00:43:57.229483')
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "shortened_urls" ("submitter_id", "long_url", "short_url", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["submitter_id", 1], ["long_url", "google.com"], ["short_url", "EDU_uStecjCpsAlxZDet5Q"], ["created_at", "2015-07-09 00:44:57.230855"], ["updated_at", "2015-07-09 00:44:57.230855"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mShortenedUrl Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = ? LIMIT 1[0m  [["short_url", "tJXhS0dULK_ZiTsXbLxpCg"]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mShortenedUrl Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "shortened_urls" WHERE "shortened_urls"."short_url" = 'tJXhS0dULK_ZiTsXbLxpCg' LIMIT 1[0m
+  [1m[35mUser Load (0.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36m (0.1ms)[0m  [1mSELECT COUNT(*) FROM "shortened_urls" WHERE (submitter_id = 1 AND created_at > '2015-07-09 00:43:57.621340')[0m
+  [1m[35m (0.1ms)[0m  rollback transaction

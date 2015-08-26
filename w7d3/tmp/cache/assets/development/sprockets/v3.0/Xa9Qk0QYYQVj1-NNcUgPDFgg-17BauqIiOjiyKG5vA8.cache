@@ -1,0 +1,1 @@
+I"function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<a href="', '#posts/' + post.escape("id"),'">',  post.escape("title") ,'</a>\n<button type="button" class="delete-button">Delete</button>\n');}return __p.join('');}:ET

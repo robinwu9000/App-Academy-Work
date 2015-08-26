@@ -1,0 +1,1 @@
+I"Õfunction(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('',  post.escape("title") ,'\n<button type="button" class="delete-button">Delete</button>\n');}return __p.join('');}:ET
