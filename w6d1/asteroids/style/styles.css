@@ -1,0 +1,19 @@
+body {
+  background-image: url('../img/space.jpg');
+}
+
+#canvas {
+  background-color: rgba(255, 0, 0, 0.5);
+  margin: 0;
+  padding: 0;
+}
+
+#title {
+  font-size: 80px;
+  text-align: center;
+  color: #f7f7f7;
+  font-family: Arial;
+  font-style: italic;
+  margin: 30px;
+  padding: 0;
+}

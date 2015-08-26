@@ -1,0 +1,53 @@
+.hanoi {
+  width: 600px;
+  height: 300px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #5D8CAE;
+
+}
+
+.tower {
+  width: 200px;
+  height: 300px;
+  float: left;
+}
+
+.cell {
+  width: 200px;
+  height: 100px;
+  transition: 0.15s ease-in-out;
+}
+
+.cell:hover {
+  opacity: 0.75;
+  background-color: #eee;
+}
+
+.disk_1 {
+  height: 100px;
+  width: 100px;
+  background-color: #F3C13A;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.disk_2 {
+  height: 100px;
+  width: 150px;
+  background-color: #F62459;
+  margin: 0 auto;
+  border-radius: 10px;
+
+}
+
+.disk_3 {
+  height: 100px;
+  width: 200px;
+  background-color: #1F4788;
+  margin: 0 auto;
+  border-radius: 10px;
+
+}

@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../css/snake.css">
+
+    <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="../js/snake.js"></script>
+    <script type="text/javascript" src="../js/snake-view.js"></script>
+  </head>
+
+  <body>
+    <h1>Snake</h1>
+    <figure class="snake"></figure>
+
+    <script>
+      $(function () {
+        var test = new snakeGame.Board();
+        test.render();
+        for (var i = 0; i < 10; i++) {
+          if(Math.random() < 0.25) {
+            test.snake.turn("N");
+          } else if(Math.random() < 0.5) {
+            test.snake.turn("W");
+          } else {
+            test.snake.turn("S");
+          }
+          test.snake.move();
+          test.render();
+        }
+      });
+    </script>
+ </body>
+</html>

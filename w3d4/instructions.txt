@@ -1,0 +1,128 @@
+Polls
+In the spirit of enfranchisement, we're going to build a polling app today!
+
+Schema
+
+You should write the following models:
+
+User
+Record a user_name; make sure it is unique.
+Poll
+Record a title and the poll author.
+Question
+A Poll consists of many Questions. Record the text.
+AnswerChoice
+A Question consists of many AnswerChoices. Record the text.
+Response
+A User answers to a Questions by choosing an AnswerChoice.
+What pair of foreign keys will you need?
+Index all foreign keys appropriately and enforce uniqueness as appropriate.
+
+Associations I
+
+Write the following associations:
+
+User
+authored_polls
+responses
+Poll
+author
+questions
+Question
+answer_choices
+poll
+AnswerChoice
+question
+responses
+Response
+answer_choice
+respondent
+Model Level Validations
+
+Add presence validations wherever required.
+
+User can't create multiple responses to the same question
+
+We will write a custom validation method, respondent_has_not_already_answered_question, to check that the respondent has not previously answered this question.
+
+Step 1: Response#sibling_responses
+
+We'll write a method Response#sibling_responses. This should return other Response objects for the same Question. To do this, first add the following associations:
+
+Response#question. This is a has_one through: association. has_one through: works exactly like has_many through: (it has through and source options). The only difference is it returns a single object (or nil) instead of an Array (or empty array).
+
+Question#responses. This is a has_many through: association. You've got this :-)
+
+Having written these associations, write Response#sibling_responses by (1) calling #question and then (2) calling #responses on the question.
+
+There is one problem. If response is not saved yet, then response.sibling_responses will not contain response, which is good. But if response has already been persisted to the db, response.sibling_responses will include response itself. We will want response.sibling_responses to contain only the other responses. Test this out by building a new (unsaved) record and calling sibling_responses and then saving it and calling sibling_responses again.
+
+To fix this, use a where to filter out responses with the same id as self.id. Test this out: call sibling_responses on a saved record to ensure it is not returned. Then repeat with an unsaved record: it will filter with WHERE responses.id = NULL.
+
+SQL uses ternary logic. A statement can be TRUE, FALSE or NULL. x = NULL is NULL because we don't know the value of NULL. Likewise x != NULL is also NULL. Even NULL = NULL is NULL, because the two NULLs might be different values: we don't know.
+
+Since self.id is NULL until a record is saved, WHERE responses.id = NULL will reject all response records. Change your where filter to only do the comparison if self.id is NOT NULL.
+
+Step 2: respondent_has_not_already_answered_question
+
+Use your sibling_responses method to write a custom validation that flags a record as invalid if there exists? any siblings with the same respondent_id.
+
+Author can't respond to own poll
+
+Enforce that the creator of the poll must not answer their own questions: don't let the creator rig the results!
+
+The simplest way is to use associations to traverse from a Response object back to the AnswerChoice, to the Question, and finally the Poll. You can then verify whether the poll's author is the same as the respondent_id. This may involve multiple queries, but we will later improve this.
+
+Poll results
+
+Write a method Question#results that returns a hash of choices and counts like so:
+
+q = Question.first
+q.title
+# => "Who is your favorite cat?"
+q.results
+# => { "Earl" => 3, "Breakfast" => 3, "Maru" => 300 }
+First, do this with an N+1 query. Get all the answer_choices for the question, then call responses.count for each.
+
+Second, use includes to pre-fetch all the responses at the same time you fetch the answer_choices. Test this to see that it makes two queries, and not N+1. (Due to ActiveRecord weirdness, use responses.length instead of responses.count).
+
+This way is not ideal; it causes all responses to be transfered to the client even though we only want to count the number of them. This is wasteful. Improve your solution. First, write out the SQL that would return answer choice rows, augmented with a column that counts the number of responses to that answer choice. Hints:
+
+Use SELECT answer_choices.*, COUNT(...)
+You'll need to combine data from both the answer_choices and responses tables.
+You'll want to keep only those answer_choices for the relevant question.
+If you want to count rows for each answer choices, you'll want a GROUP BY somehow.
+Be careful not to filter out answer_choices merely because there are no responses choosing it. These should have a count of zero.
+COUNT(*) counts the number of rows in a group; COUNT(col_name) counts the number of rows where col_name IS NOT NULL.
+Show your TA your SQL code. Having done this, write the query in ActiveRecord. Hints:
+
+You'll want your self.answer_choices association
+You'll want to use select, joins, and group.
+You can do a LEFT OUTER JOIN if you use a SQL fragment in your joins.
+Bonus: more methods
+
+Write a User#completed_polls method: it should return polls where the user has answered all of the questions in the poll.
+
+Again, write the SQL first. Start by counting the questions per poll:
+
+You want data from polls and questions.
+You want the number of questions per poll, so what do you GROUP BY?
+How do you SELECT all polls columns plus count the number of questions
+Next, let's extend our query to count the number of responses from this user:
+
+We need responses data, so continue the JOINs.
+We don't want to discard a question if no one responded to it (an unanswered question still counts to the total # of questions). What kind of JOIN is appropriate?
+Joining against all the responses is unnecessary; we only care about the user's responses. JOIN with a subquery on responses.
+Why would a WHERE responses.respondent_id = ? not work at the top level; talk it over with your TA.
+Lastly, use a HAVING to eliminate those polls where the number of questions is not equal to the number of responses.
+Verify this SQL with Poll::find_by_sql to run raw SQL returning Poll objects. Ask your TA if you don't know how. Then write it in ActiveRecord.
+
+You can write an uncompleted polls method too; it should return polls where the user has answered at least one question, but not all of them. I think this merely uses a different HAVING clause, don't you?
+
+Bonus: Playing with custom validations
+
+Improve Response#does_not_respond_to_own_poll to do one query by doing a join across answer choice, question and poll to get the poll the response is for Poll.joins(...).... Then check the poll's author_id.
+
+Response#sibling_responses makes two queries: first it runs a query to return the Question for the Response, then it performs a second query to return the #responses for the Question. Can you get this done in a single query? It likely involves joining answer_choices to questions; we should select the answer_choice the response is for, this will give us the one questions record we need. Next, we could join back to answer_choices again and onward to responses.
+
+BTW: this "improvement" is likely not worth the tears future readers of your code will shed, but it's a good brain-twister.

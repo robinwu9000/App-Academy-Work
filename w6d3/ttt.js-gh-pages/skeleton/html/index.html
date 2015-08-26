@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:900' rel='stylesheet' type='text/css'>
+    <meta charset="utf-8">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" type="text/css" href="../css/ttt.css">
+  </head>
+  <body>
+    <figure class="ttt"></figure>
+
+    <script src="../js/jquery-2.1.1.js"></script>
+    <!-- Whackjobs at GithubPages don't understand symlinks... -->
+    <script src="../../ttt-core-solution/ttt-core.js"></script>
+    <script src="../js/ttt-view.js"></script>
+
+
+    <!-- <div>
+      <ul></ul>
+    </div>
+    <script>
+(function () {
+  var coolThings = [
+    "racecars",
+    "lasers",
+    "aeroplanes"
+  ];
+
+  var i = 0;
+  window.setInterval(function () {
+    var $ul = $("ul");
+    if ($ul.children().length == 10) {
+      // $ul.children() returns a jQuery object containing all the
+      // children; we then call `#remove`, which implicitly iterates
+      // over the set, removing each of them.
+      $ul.children().remove();
+    }
+
+    var li = document.createElement("li");
+    li.textContent = coolThings[i];
+    // jQuery#append is just like HTMLElement#appendChild
+    $ul.append(li);
+
+    i = (i + 1) % 3;
+  }, 1000);
+})();
+</script> -->
+
+    <script>
+      // Write your code here.
+      $(function () {
+        new TTT.View(new TTT.Game(), $(".ttt"));;
+      });
+    </script>
+  </body>
+</html>
