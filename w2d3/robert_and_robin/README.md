@@ -5,6 +5,11 @@ A simple command-line interface [chess game](https://en.wikipedia.org/wiki/Rules
 Download the chess folder in this repo and run it with
 `ruby game.rb`.
 
+Side note: Colors making it hard to see the pieces? Go into the `board.rb` 
+file and change the background colors to something that works for you. Keep 
+in mind that the cursor colors are red and orange.
+
+
 ## Playing it
 Instructions are written on the screen, but here's a recap:
 

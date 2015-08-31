@@ -16,7 +16,7 @@ class Board
     :d => [0, 1]
   }
 
-  BACKGROUND_COLORS = { 0 => :green, 1 => :blue}
+  BACKGROUND_COLORS = { 0 => :black, 1 => :green}
 
   PIECE_ORDER = [Rook, Knight, Bishop, Queen,
                 King, Bishop, Knight, Rook]
